@@ -1,12 +1,12 @@
-import express from 'express'
-import path from 'path'
-import favicon from 'serve-favicon'
-import webpack from 'webpack'
-// import bodyParser             from 'body-parser'
+var express = require('express')
+var path = require('path')
+var favicon = require('serve-favicon')
+var webpack = require('webpack')
+// var bodyParser = require(       from 'body-parser')
 
-import webpackConfig from './webpack.config.dev'
-import devMiddleware from 'webpack-dev-middleware'
-import hotmiddleware from 'webpack-hot-middleware'
+var webpackConfig = require('./webpack.config.dev')
+var devMiddleware = require('webpack-dev-middleware')
+var hotmiddleware = require('webpack-hot-middleware')
 
 var app = express()
 const port = process.env.PORT || 1111
