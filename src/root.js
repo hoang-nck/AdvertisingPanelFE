@@ -16,7 +16,7 @@ import 'slick-carousel/slick/slick-theme.scss'
 import './scss/react-select/default.scss'
 import './scss/app.scss'
 
-import '../public/bootstrap/dist/js/bootstrap.bundle.min'
+import '../public/bootstrap/dist/js/bootstrap'
 
 React.Component.prototype.changeInput = (target, obj) => {
   let names = target.name.split('.')
