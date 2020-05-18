@@ -1,12 +1,12 @@
-var express = require('express')
-var path = require('path')
-var favicon = require('serve-favicon')
+import express from 'express'
+import path from 'path'
+import favicon from 'serve-favicon'
+import webpack from 'webpack'
+// import bodyParser             from 'body-parser'
 
-// var bodyParser = require(       from 'body-parser')
-
-var webpackConfig = require('./webpack.config.dev')
-var devMiddleware = require('webpack-dev-middleware')
-var hotmiddleware = require('webpack-hot-middleware')
+import webpackConfig from './webpack.config.dev'
+import devMiddleware from 'webpack-dev-middleware'
+import hotmiddleware from 'webpack-hot-middleware'
 
 var app = express()
 const port = process.env.PORT || 1111
@@ -17,7 +17,6 @@ const port = process.env.PORT || 1111
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 if (process.env.NODE_ENV === 'development') {
-  var webpack = require('webpack')
   const compiler = webpack(webpackConfig)
   app.use(devMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
