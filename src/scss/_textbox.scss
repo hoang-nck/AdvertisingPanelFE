@@ -1,0 +1,93 @@
+.clsInput {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	vertical-align: top;
+	overflow: hidden;
+	margin: 2px 0;
+	
+	input {
+		display: block;
+		border: none;
+		font-weight: 400;
+		-webkit-appearance: none; /* for box shadows to show on iOS */
+
+		padding: 2px;
+		margin-top: 12px;
+		width: 100%;
+		background: transparent;
+	}
+
+	input:focus {
+		outline: none;
+	}
+
+	label {
+		font-weight: bold;
+		position: absolute;
+		top: 12px;
+		left: 0;
+		display: block;
+		width: 100%;
+		text-align: left;
+		padding: 0em;
+		pointer-events: none;
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0;
+		-webkit-transition: -webkit-transform 0.2s 0.15s, color 1s;
+		transition: transform 0.2s 0.15s, color 1s;
+		-webkit-transition-timing-function: ease-out;
+		transition-timing-function: ease-out;
+
+		span {
+			position: relative;
+			display: block;
+			width: 100%;
+		}
+	}
+
+	input:focus + label{
+		color: #066ef6;
+		-webkit-transform: translate3d(0, -15px, 0) scale3d(0.85, 0.85, 1);
+		transform: translate3d(0, -15px, 0) scale3d(0.85, 0.85, 1);
+	}
+
+	svg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		fill: none;
+		width: 300%;
+		height: 100%;
+		stroke: #333;
+		pointer-events: none;
+		-webkit-transition: -webkit-transform 0.7s, stroke 0.7s;
+		transition: transform 0.7s, stroke 0.7s;
+		-webkit-transition-timing-function: cubic-bezier(0, 0.25, 0.5, 1);
+		transition-timing-function: cubic-bezier(0, 0.25, 0.5, 1);
+	}
+
+	input:focus ~ svg {
+		stroke: #066ef6;
+		-webkit-transform: translate3d(-66.6%, 0, 0);
+		transform: translate3d(-66.6%, 0, 0);
+	}
+}
+
+
+.clsInput.filled {
+	label {
+		color: #066ef6;
+		-webkit-transform: translate3d(0, -15px, 0) scale3d(0.8, 0.8, 1);
+		transform: translate3d(0, -15px, 0) scale3d(0.85, 0.85, 1);
+	}
+	svg {
+		stroke: #333;
+		-webkit-transform: translate3d(-66.6%, 0, 0);
+		transform: translate3d(-66.6%, 0, 0);
+	}
+	
+}
+
+
+

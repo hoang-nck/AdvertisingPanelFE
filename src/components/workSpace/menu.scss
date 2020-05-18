@@ -1,0 +1,10 @@
+.tableMenu {
+  > div {
+    position: relative;
+    > span {
+      position: absolute;
+      top: 0;
+      right: 15px;
+    }
+  }
+}

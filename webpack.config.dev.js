@@ -1,8 +1,6 @@
-/**
- * Created by HoangNck on 12/08/19.
- */
-import webpack from 'webpack'
-import path from 'path'
+var webpack = require('webpack')
+var path = require('path')
+
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 

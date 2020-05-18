@@ -1,0 +1,37 @@
+.slick-prev {
+  left: -10px !important;
+}
+.slick-next {
+    right: -10px !important;
+}
+
+.clsHouse {
+  margin: 5px 0;
+  > div {
+    margin: 0 10px;
+  }
+  > .clsBtn {
+    float: right;
+  }
+}
+
+.clsTable {
+  height: 110px;
+  margin: 0 5px;
+  text-align: center;
+  border: 1px solid dodgerblue;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clsTable.active {
+  background-color: rgba(15, 233, 248, 0.6);
+}
+
+.clsTable:hover {
+  background-color: rgba(0, 182, 255, 0.6);
+}
+
+.clsTable:active {
+  background-color: rgb(15, 233, 248);
+}

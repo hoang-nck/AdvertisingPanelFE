@@ -4,6 +4,7 @@
   "description": "Frontend of Advertising panel",
   "author": "HoangNck",
   "license": "ISC",
+  "main": "index.js",
   "scripts": {
     "start-server": "babel-node app.js",
     "nf-server": "nf start start-server -e .env",
@@ -11,7 +12,8 @@
     "build-dev": "babel-node builddev.js",
     "build-prod": "webpack -p --config webpack.config.prod.js",
     "dev": "npm-run-all --parallel build-dev start-server",
-    "start": "nf start dev -e .env",
+    "start-dev": "nf start dev -e .env",
+    "start": "babel-node app.js",
     "production": "nf start build-prod -e prod.env",
     "runpm2": "pm2 start --name=pos-web npm -- run nf-server"
   },
@@ -43,7 +45,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^7.1.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -61,6 +63,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0"
   }
