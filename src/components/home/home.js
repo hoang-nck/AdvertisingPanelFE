@@ -26,7 +26,6 @@ class Home extends React.Component {
     }
     return (
       <div>
-
         <h1>{this.props.logged ? this.props.user.name : "Welcome"}</h1>
         <DatePicker config={{ lr: "clsLeft", time: this.state.time, dateFormat: ['YYYY', 'MM', 'DD'], showFormat: "YYYY/MM/DD", selectTime: this.selectTime }} />
         <Texbox title="Year" style={style} name="value1" type="text" value={this.state.value1} events={{ onChange: this.changeInput }} />
