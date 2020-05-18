@@ -13,13 +13,12 @@
     "build-prod": "webpack -p --config webpack.config.prod.js",
     "dev": "npm-run-all --parallel build-dev start-server",
     "start-dev": "nf start dev -e .env",
-    "start": "babel-node app.js",
+    "start": "node app.js",
     "production": "nf start build-prod -e prod.env",
     "runpm2": "pm2 start --name=pos-web npm -- run nf-server"
   },
   "dependencies": {
     "apisauce": "^1.1.1",
-    "babel-node": "0.0.1-security",
     "bootstrapt": "^1.2.0",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
