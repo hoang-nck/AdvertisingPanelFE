@@ -3,6 +3,7 @@ import React from 'react'
 
 // import Texbox from '../common/inputs/textbox'
 // import Select from 'react-select'
+import Cube from '../common/cube'
 import DatePicker from '../common/date'
 
 class Home extends React.Component {
@@ -26,6 +27,7 @@ class Home extends React.Component {
     }
     return (
       <div>
+        <Cube />
         <h1>{this.props.logged ? this.props.user.name : "Welcome"}</h1>
         <DatePicker config={{ lr: "clsLeft", time: this.state.time, dateFormat: ['YYYY', 'MM', 'DD'], showFormat: "YYYY/MM/DD", selectTime: this.selectTime }} />
         {/* <Texbox title="Year" style={style} name="value1" type="text" value={this.state.value1} events={{ onChange: this.changeInput }} />
