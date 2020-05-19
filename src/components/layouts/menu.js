@@ -5,7 +5,7 @@ import Account from './account'
 
 export default () => {
   return (
-    <Navbar bg='light' expand='lg'>
+    <Navbar bg='light' expand='lg' style={{padding: '0 8px'}}>
       <Navbar.Brand href='/'><img width='40' src='/images/advertising.png' /></Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
