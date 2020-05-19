@@ -10,13 +10,13 @@ import Alerts from './components/common/alerts'
 import Modals from './components/common/modals'
 import store from './store'
 
-import '../public/bootstrap/scss/bootstrap.scss'
+import 'bootstrap/scss/bootstrap.scss'
 import 'slick-carousel/slick/slick.scss'
 import 'slick-carousel/slick/slick-theme.scss'
 import './scss/react-select/default.scss'
 import './scss/app.scss'
 
-import '../public/bootstrap/dist/js/bootstrap'
+// import '../public/bootstrap/dist/js/bootstrap'
 
 React.Component.prototype.changeInput = (target, obj) => {
   let names = target.name.split('.')

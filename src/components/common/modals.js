@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 const Modal = ({modal, clear, clearModal}) => {
   const [ isNone, setIsNone ] = useState(false)
 
-  useEffect(() => { $(`#${modal.id}`).modal({show: true}) }, [])
+  useEffect(() => {
+    console.log(3434)
+    $(`#${modal.id}`).modal({show: true})
+  }, [])
 
   const close = (event, bool = false) => {
     event && event.stopPropagation()

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "apisauce": "^1.1.1",
+    "bootstrap": "^4.5.0",
     "bootstrapt": "^1.2.0",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
@@ -27,6 +28,7 @@
     "node-env-file": "^0.1.8",
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-click-outside": "^3.0.1",
     "react-content-loader": "^5.0.4",
     "react-dom": "^16.13.1",
@@ -51,7 +53,6 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "bootstrap": "^4.5.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",

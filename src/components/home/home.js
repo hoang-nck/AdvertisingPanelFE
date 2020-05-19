@@ -1,8 +1,8 @@
 import React from 'react'
-import ContentLoader from "react-content-loader"
+// import ContentLoader from "react-content-loader"
 
-import Texbox from '../common/inputs/textbox'
-import Select from 'react-select'
+// import Texbox from '../common/inputs/textbox'
+// import Select from 'react-select'
 import DatePicker from '../common/date'
 
 class Home extends React.Component {
@@ -28,9 +28,9 @@ class Home extends React.Component {
       <div>
         <h1>{this.props.logged ? this.props.user.name : "Welcome"}</h1>
         <DatePicker config={{ lr: "clsLeft", time: this.state.time, dateFormat: ['YYYY', 'MM', 'DD'], showFormat: "YYYY/MM/DD", selectTime: this.selectTime }} />
-        <Texbox title="Year" style={style} name="value1" type="text" value={this.state.value1} events={{ onChange: this.changeInput }} />
+        {/* <Texbox title="Year" style={style} name="value1" type="text" value={this.state.value1} events={{ onChange: this.changeInput }} />
         <Texbox title="Month" style={style} name="value2" type="number" value={this.state.value2} events={{ onChange: this.changeInput }} />
-        <Texbox title="Day" style={style} name="value3" type="text" value={this.state.value3} events={{ onChange: this.changeInput }} />
+        <Texbox title="Day" style={style} name="value3" type="text" value={this.state.value3} events={{ onChange: this.changeInput }} /> */}
 
         <span className="clsBtn">Close <i className="fa fa-reply-all" aria-hidden="true"></i></span> &nbsp;
                 <strong style={{ color: '#066ef6' }} className="clsBtn">Enter <i className="far fa-paper-plane" aria-hidden="true"></i></strong>
@@ -39,7 +39,7 @@ class Home extends React.Component {
         <DatePicker config={{ lr: "clsRight", time: this.state.time, dateFormat: ['YYYY', 'MM', 'DD'], showFormat: "YYYY/MM/DD", selectTime: this.selectTime }} />
         <DatePicker config={{ lr: "clsRight", time: this.state.time, dateFormat: ['YYYY', 'MM', 'DD', 'hh', 'mm'], showFormat: "YYYY/MM/DD hh:mm", selectTime: this.selectTime }} /><strong style={{ color: '#066ef6' }} className="clsBtn">Enter <i className="far fa-paper-plane" aria-hidden="true"></i></strong><br />
         <DatePicker config={{ lr: "clsLeft", time: this.state.time, dateFormat: ['YYYY', 'MM', 'DD', 'hh', 'mm'], showFormat: "YYYY/MM/DD hh:mm", selectTime: this.selectTime }} />
-        <Select
+        {/* <Select
           name="form-field-name"
           value={this.state.select}
           onChange={this.select}
@@ -47,14 +47,14 @@ class Home extends React.Component {
             { value: 'one', label: 'One' },
             { value: 'two', label: 'Two' },
           ]}
-        />
+        /> */}
 
-        {bool && <ContentLoader height={160} width={400} speed={2} primaryColor="#5bcfec8f" secondaryColor="#ecebeb">
+        {/* {bool && <ContentLoader height={160} width={400} speed={2} primaryColor="#5bcfec8f" secondaryColor="#ecebeb">
           <rect x="0" y="5" rx="5" ry="5" width="100%" height="5" />
           <rect x="0" y="15" rx="5" ry="5" width="100%" height="5" />
           <rect x="0" y="25" rx="5" ry="5" width="100%" height="5" />
           <rect x="0" y="35" rx="5" ry="5" width="100%" height="5" />
-        </ContentLoader>}
+        </ContentLoader>} */}
 
         <p>
           Removed $badge-color variable and its usage on .badge. We use a color contrast function to pick a color based on the background-color, so the variable is unnecessary.
