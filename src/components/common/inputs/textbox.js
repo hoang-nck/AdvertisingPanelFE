@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Textbox ({ clsName, title, name, type, value, defaultValue, onChange, onBlur, onClickP, style }) {
+export default ({ clsName, title, name, type, value, defaultValue, onChange, onBlur, onClickP, style }) => {
   const vl = value || defaultValue
   let cls = ((typeof vl === 'string' && vl !== '') || typeof vl === 'number') ? 'clsInput filled' : 'clsInput'
   cls += (typeof clsName === 'string' && clsName !== '') ? (' ' + clsName) : ''
@@ -31,7 +31,7 @@ export default function Textbox ({ clsName, title, name, type, value, defaultVal
     onChange,
     onBlur
   }
-  defaultValue ? (inputData.defaultValue = defaultValue) : (inputData.value = value)
+  defaultValue ? (inputData.defaultValue = defaultValue || '') : (inputData.value = value || '')
 
   return (
     <span className={cls} style={styleP} onClick={onClickP} >
