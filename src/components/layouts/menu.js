@@ -12,7 +12,7 @@ export default connect(state => ({
   const { logged } = props
 
   return (
-    <Navbar bg='light' expand='lg' style={{padding: '0 8px'}}>
+    <Navbar className='clsMenu' expand='lg' style={{padding: '0 8px'}}>
       <NavLink className='navbar-brand' to='/'><img width='40' src='/images/advertising.png' /></NavLink>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>

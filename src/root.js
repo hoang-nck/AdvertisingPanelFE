@@ -15,7 +15,7 @@ import 'slick-carousel/slick/slick-theme.scss'
 import './scss/react-select/default.scss'
 import './scss/app.scss'
 
-const Root = props => (
+const Root = () => (
   <Provider store={store}>
     <BrowserRouter>
       <div className='container-fluid'>
