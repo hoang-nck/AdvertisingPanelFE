@@ -10,16 +10,6 @@ export default function common (state = initialState, action) {
         ...state,
         alert: action.alert
       }
-    case types.common.addModal:
-      return {
-        ...state,
-        modal: action.modal
-      }
-    case types.common.clearModal:
-      return {
-        ...state,
-        clearModal: action.id
-      }
     default:
       return state
   }

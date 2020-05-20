@@ -7,8 +7,6 @@ module.exports = {
     getByUser: 'getHouseByUser'
   },
   common: {
-    addAlert: 'addAlert',
-    addModal: 'addModal',
-    clearModal: 'clearModal'
+    addAlert: 'addAlert'
   }
 }

@@ -49,7 +49,7 @@ export default connect(mapStateToProps, null)(props => {
           <Route path={'/'} exact component={Home} />
           <Route path={`/contact`} component={UserSubLayout} />
           <Route path={`/workspace`} component={WorkSpace} />
-          {logged && <Route path={`/example`} component={Example} />}
+          {logged && <Route path={`/example`} component={() => <Example value1={7} />} />}
           {logged && <Route path={`/cms`} component={Cms} />}
           <Redirect to={'/'} />
         </Switch>

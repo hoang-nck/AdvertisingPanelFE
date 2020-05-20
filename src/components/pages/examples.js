@@ -5,12 +5,12 @@ import Select from 'react-select'
 import DatePicker from '../common/date'
 import Texbox from '../common/inputs/textbox'
 
-export default () => {
+export default props => {
   const bool = true
   const style = {
     styleP: { width: '100px' }
   }
-  const [value1, setValue1] = useState('')
+  const [value1, setValue1] = useState(props.value1 || '')
   const [value2, setValue2] = useState('')
   const [value3, setValue3] = useState('')
   const [select, setSelect] = useState('')
@@ -19,9 +19,9 @@ export default () => {
     <div>
       <h1>Welcome</h1>
       <DatePicker config={{ lr: 'clsLeft', time: time, dateFormat: ['YYYY', 'MM', 'DD'], showFormat: 'YYYY/MM/DD', selectTime: setTime }} />
-      <Texbox title='Year' style={style} type='text' value={value1} events={{ onChange: (e) => setValue1(e.value) }} />
-      <Texbox title='Month' style={style} type='number' value={value2} events={{ onChange: (e) => setValue2(e.value) }} />
-      <Texbox title='Day' style={style} type='text' value={value3} events={{ onChange: (e) => setValue3(e.value) }} />
+      <Texbox title='Year' style={style} type='text' value={value1} events={{ onChange: (e) => setValue1(e.target.value) }} />
+      <Texbox title='Month' style={style} type='number' value={value2} events={{ onChange: (e) => setValue2(e.target.value) }} />
+      <Texbox title='Day' style={style} type='text' value={value3} events={{ onChange: (e) => setValue3(e.target.value) }} />
 
       <span className='clsBtn'>Close <i className='fa fa-reply-all' aria-hidden='true' /></span> &nbsp;
       <strong style={{ color: '#066ef6' }} className='clsBtn'>Enter <i className='far fa-paper-plane' aria-hidden='true' /></strong>
@@ -46,6 +46,7 @@ export default () => {
         <rect x='0' y='25' rx='5' ry='5' width='100%' height='5' />
         <rect x='0' y='35' rx='5' ry='5' width='100%' height='5' />
       </ContentLoader>}
+
     </div>
   )
 }

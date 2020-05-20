@@ -7,7 +7,6 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Menu from './components/layouts/menu'
 import Body from './components/layouts/body'
 import Alerts from './components/common/alerts'
-import Modals from './components/common/modals'
 import store from './store'
 
 import 'bootstrap/scss/bootstrap.scss'
@@ -22,7 +21,6 @@ const Root = props => (
       <div className='container-fluid'>
         <Menu />
         <Route component={Body} />
-        <Modals />
         <Alerts />
       </div>
     </BrowserRouter>
