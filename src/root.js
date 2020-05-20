@@ -16,29 +16,6 @@ import 'slick-carousel/slick/slick-theme.scss'
 import './scss/react-select/default.scss'
 import './scss/app.scss'
 
-// import '../public/bootstrap/dist/js/bootstrap'
-
-React.Component.prototype.changeInput = (target, obj) => {
-  let names = target.name.split('.')
-  let value = target.type === 'number' ? (parseInt(target.value) || '') : target.value
-  if (names.length === 1) {
-    obj.setState({
-      [target.name]: value
-    })
-  } else if (names.length > 1) {
-    let data = obj.state[names[0]]
-    let string = 'data'
-    for (let i = 1; i < names.length; i++) {
-      string += `['${names[i]}']`
-    }
-    string += ' = value'
-    eval(string)
-    obj.setState({
-      [names[0]]: data
-    })
-  }
-}
-
 const Root = props => (
   <Provider store={store}>
     <BrowserRouter>
