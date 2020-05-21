@@ -48,6 +48,10 @@ export default class Base {
     return this.execute(`${this.url.base}/${id}`, 'delete', null)
   }
 
+  destroy = id => {
+    return this.execute(`${this.url.base}/destroy/${id}`, 'delete', null)
+  }
+
   uploadFile = file => {
     let body = new FormData()
     body.append('file', file)

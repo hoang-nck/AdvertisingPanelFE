@@ -4,7 +4,7 @@ import urls from '../urls'
 class House extends Base {
   constructor (url) {
     super(url)
-    this.url = url;
+    this.url = url
   }
 
   getTables = (ids, options) => {

@@ -13,5 +13,9 @@ export default {
   house: {
     base: '/houses',
     getTable: '/houses/:id/areas/:id/tables'
+  },
+
+  advertisement: {
+    base: '/advertisements'
   }
 }

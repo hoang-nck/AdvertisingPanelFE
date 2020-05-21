@@ -1,10 +1,14 @@
 import React from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Route, Redirect, Switch, NavLink, withRouter } from 'react-router-dom'
+
 import Home from '../home/home'
 import Example from '../pages/examples'
 import WorkSpace from '../workSpace'
 import Cms from '../cms'
+
+import * as commonAc from '../../actions/common'
 
 // Sub Layouts
 import BrowseUsersPage from '../pages/browseUsersPage'
@@ -33,14 +37,12 @@ const UserSubLayout = ({ match }) => (
   </div>
 )
 
-const mapStateToProps = (state) => {
-  return {
-    logged: state.auth.logged,
-    user: state.auth.user
-  }
-}
-
-export default connect(mapStateToProps, null)(props => {
+export default connect(state => ({
+  logged: state.auth.logged,
+  user: state.auth.user
+}), dispatch => ({
+  commonAc: bindActionCreators(commonAc, dispatch)
+}))(props => {
   const { logged } = props
   return (
     <div>
@@ -50,7 +52,7 @@ export default connect(mapStateToProps, null)(props => {
           <Route path={`/contact`} component={UserSubLayout} />
           <Route path={`/workspace`} component={WorkSpace} />
           {logged && <Route path={`/example`} component={() => <Example value1={7} />} />}
-          {logged && <Route path={`/cms`} component={Cms} />}
+          {logged && <Route path={`/cms`} component={() => <Cms {...props} />} />}
           <Redirect to={'/'} />
         </Switch>
       </main>
