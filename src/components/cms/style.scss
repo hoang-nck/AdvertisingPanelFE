@@ -1,5 +1,10 @@
 .clsCms {
   table {
+    th {
+      padding: 5px 5px;
+      vertical-align: middle !important;
+      text-align: center;
+    }
     td {
       padding: 0 5px;
       vertical-align: middle;

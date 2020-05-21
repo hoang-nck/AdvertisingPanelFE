@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ clsName, title, name, type, value, defaultValue, onChange, onBlur, onClickP, style }) => {
+export default function Textbox ({ clsName, title, name, type, value, defaultValue, onChange, onBlur, onClickP, style }) {
   const vl = value || defaultValue
   let cls = ((typeof vl === 'string' && vl !== '') || typeof vl === 'number') ? 'clsInput filled' : 'clsInput'
   cls += (typeof clsName === 'string' && clsName !== '') ? (' ' + clsName) : ''
