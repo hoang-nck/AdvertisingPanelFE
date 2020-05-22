@@ -15,10 +15,7 @@ const initialState = {
   showIdx: -1,
   editIdx: -1,
   button: {
-    getAdvertisemens: 1,
-    update: 3,
-    delete: 3,
-    save: 3
+    getAdvertisemens: 1
   },
   advertisement: {},
   advertisements: []
@@ -26,18 +23,12 @@ const initialState = {
 
 const reducer = async (state, action, props) => {
   let rs, data
+  const getButton = name => ({ button: { ...state.button, [name]: _.get(state.button, name, 1) + 2 } })
+
   switch (action.type) {
     case 'getAdvertisemens':
-      // const pro = async () => new Promise((resolve) => {
-      //   const as = async () => {
-      //     resolve(await advertisementCtr.get({})())
-      //   }
-      //   setTimeout(() => { as() }, 2000)
-      // })
-      // rs = await pro()
-      rs = await advertisementCtr.get({})()
-      data = { button: { ...state.button, getAdvertisemens: _.get(state.button, 'getAdvertisemens', 0) + 2 } }
-
+      rs = await advertisementCtr.get({sort: 'title'})()
+      data = { }
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Làm mới thành công!' })
         data.advertisements = rs.data
@@ -45,7 +36,7 @@ const reducer = async (state, action, props) => {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Bảng hiệu', body: rs.message })
       }
 
-      return {...state, ...data}
+      return {...state, ...data, ...getButton('getAdvertisemens')}
     case 'clear':
       return {
         ...state,
@@ -72,29 +63,25 @@ const reducer = async (state, action, props) => {
         editIdx: action.index
       }
     case 'save':
-      data = { button: { ...state.button, save: _.get(state.button, 'save', 0) + 2 } }
+      data = {}
       rs = await advertisementCtr.post(state.advertisement)()
-
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Tạo mới thành công!' })
         data = {
           ...data,
           advertisement: {},
-          advertisements: [state.advertisement, ...state.advertisements]
+          advertisements: [rs.data, ...state.advertisements]
         }
       } else {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Error!', body: rs.message })
       }
 
-      return {
-        ...state,
-        ...data
-      }
+      return {...state, ...data, ...getButton('save')}
     case 'update':
       action.e.preventDefault()
       action.e.stopPropagation()
 
-      data = { button: { ...state.button, update: _.get(state.button, 'update', 0) + 2 } }
+      data = {}
       const item = state.advertisements[state.editIdx]
       rs = await advertisementCtr.put(item._id, item)()
       if (rs.success) {
@@ -104,7 +91,7 @@ const reducer = async (state, action, props) => {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Error!', body: rs.message })
       }
 
-      return {...state, ...data}
+      return {...state, ...data, ...getButton('update')}
     case 'showConfirm':
       action.e.preventDefault()
       action.e.stopPropagation()
@@ -118,7 +105,7 @@ const reducer = async (state, action, props) => {
         showIdx: -1
       }
     case 'delete':
-      data = { button: { ...state.button, delete: _.get(state.button, 'delete', 0) + 2 } }
+      data = {}
       rs = await advertisementCtr.destroy(state.advertisements[state.showIdx]._id)()
 
       if (rs.success) {
@@ -129,7 +116,7 @@ const reducer = async (state, action, props) => {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Error!', body: rs.message })
       }
 
-      return {...state, ...data}
+      return {...state, ...data, ...getButton('delete')}
     default:
       return state
   }
@@ -146,8 +133,8 @@ export default function Cms (props) {
   return (
     <div className='clsCms'>
       <center>
-        <h1>Chào mừng bạn đến với Hệ thống quản lý nội dung</h1>
-        <h3><strong>Các bảng hiệu</strong></h3>
+        <h1>Welcom</h1>
+        <h3><strong>Advertisement</strong></h3>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -158,7 +145,7 @@ export default function Cms (props) {
               <th>Miêu tả</th>
               <th>Hình ảnh</th>
               <th>video</th>
-              <th><Button name='getAdvertisemens' className='clrGreen' loading={button.getAdvertisemens || 0} onClick={() => { disPatch('clear'); disPatch('getAdvertisemens') }} icon='fas fa-sync-alt' /></th>
+              <th><Button name='getAdvertisemens' className='clrGreen' loading={button.getAdvertisemens} onClick={() => { disPatch('clear'); disPatch('getAdvertisemens') }} icon='fas fa-sync-alt' /></th>
             </tr>
           </thead>
           <tbody>
@@ -170,7 +157,7 @@ export default function Cms (props) {
               <td><Textbox type='text' name='description' value={advertisement.description} onChange={onChangeNew} title='' /></td>
               <td><Textbox type='text' name='images' value={advertisement.images} onChange={onChangeNew} title='' /></td>
               <td><Textbox type='text' name='video' value={advertisement.video} onChange={onChangeNew} title='' /></td>
-              <td><Button name='save' className='clrGreen' onClick={() => disPatch('save')} loading={button.save || 0} icon='fas fa-share-square' /></td>
+              <td><Button name='save' className='clrGreen' onClick={() => disPatch('save')} loading={button.save} icon='fas fa-share-square' /></td>
             </tr>
             {advertisements.map((item, idx) => (
               <tr key={idx + 1} onClick={e => disPatch({type: 'onClickEdit', index: idx, e})}>
@@ -195,8 +182,8 @@ export default function Cms (props) {
                     </React.Fragment>
                 }
                 <td>
-                  <Button name='update' className={`clrGreen ${editIdx === idx ? '' : 'none'}`} onClick={e => disPatch({type: 'update', e})} loading={button.update || 0} icon='fas fa-share-square' />
-                  <Button name='showConfirm' className={`clrGreen ${editIdx === idx ? 'none' : ''}`} onClick={e => disPatch({type: 'showConfirm', index: idx, e})} icon='fas fa-trash-alt' />
+                  <Button name='update' className={`clrGreen ${editIdx === idx ? '' : 'none'}`} onClick={e => disPatch({type: 'update', e})} loading={button.update} icon='fas fa-share-square' />
+                  <Button name='showConfirm' className={`clrGreen ${editIdx === idx ? 'none' : ''}`} onClick={e => disPatch({type: 'showConfirm', index: idx, e})} loading={false} icon='fas fa-trash-alt' />
                 </td>
               </tr>
             ))}
@@ -210,7 +197,7 @@ export default function Cms (props) {
         <Modal.Body>{`Bạn có chắc là muốn xoá Bảng hiệu ${_.get(advertisements[showIdx], 'title', '')}`}</Modal.Body>
         <Modal.Footer>
           <Button name='cancel' onClick={() => disPatch('onHide')} icon='fa fa-reply-all' value='Huỷ' />
-          <Button name='delete' className='clrBlue' onClick={() => disPatch('delete')} loading={button.delete || 0} icon='fas fa-trash-alt' value='Xoá' />
+          <Button name='delete' className='clrBlue' onClick={() => disPatch('delete')} loading={button.delete} icon='fas fa-trash-alt' value='Xoá' />
         </Modal.Footer>
       </Modal>
     </div>

@@ -51,3 +51,10 @@ export default {
     return [state, dispatch]
   }
 }
+// const pro = async () => new Promise((resolve) => {
+//   const as = async () => {
+//     resolve(await advertisementCtr.get({})())
+//   }
+//   setTimeout(() => { as() }, 2000)
+// })
+// rs = await pro()
