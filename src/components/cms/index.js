@@ -14,9 +14,8 @@ import './style.scss'
 const initialState = {
   showIdx: -1,
   editIdx: -1,
-  button: {
-    getAdvertisemens: 1
-  },
+  button: { getAdvertisemens: 1 },
+  sort: {},
   advertisement: {},
   advertisements: []
 }
@@ -37,6 +36,14 @@ const reducer = async (state, action, props) => {
       }
 
       return {...state, ...data, ...getButton('getAdvertisemens')}
+    case 'sort':
+      let items = _.sortBy(state.advertisements, [action.field])
+      state.sort[action.field] && (items = items.reverse())
+      return {
+        ...state,
+        advertisements: items,
+        sort: { [action.field]: !state.sort[action.field] }
+      }
     case 'clear':
       return {
         ...state,
@@ -122,9 +129,15 @@ const reducer = async (state, action, props) => {
   }
 }
 
+const getIconSort = value => {
+  if (value === undefined) return 'fas fa-sort'
+  if (value) return 'fas fa-sort-amount-down'
+  return 'fas fa-sort-amount-up'
+}
+
 export default function Cms (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
-  const { advertisement, editIdx, showIdx, advertisements, button } = state
+  const { advertisement, editIdx, showIdx, advertisements, button, sort } = state
   const onChangeNew = e => disPatch({type: 'onChangeNew', e: _.pick(e.target, ['name', 'value'])})
   const onChangeEdit = e => disPatch({type: 'onChangeEdit', e: _.pick(e.target, ['name', 'value'])})
 
@@ -139,13 +152,13 @@ export default function Cms (props) {
           <thead>
             <tr>
               <th>#</th>
-              <th>Tiêu đề</th>
-              <th>Giá cả</th>
-              <th>Thời gian hoàn thành</th>
-              <th>Miêu tả</th>
-              <th>Hình ảnh</th>
-              <th>video</th>
-              <th><Button name='getAdvertisemens' className='clrGreen' loading={button.getAdvertisemens} onClick={() => { disPatch('clear'); disPatch('getAdvertisemens') }} icon='fas fa-sync-alt' /></th>
+              <th><strong>Tiêu đề</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'title'}) }} icon={getIconSort(sort.title)} /></th>
+              <th><strong>Giá cả</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
+              <th><strong>Thời gian</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'time'}) }} icon={getIconSort(sort.time)} /></th>
+              <th><strong>Miêu tả</strong></th>
+              <th><strong>Hình ảnh</strong></th>
+              <th><strong>video</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'video'}) }} icon={getIconSort(sort.video)} /></th>
+              <th><Button className='clrGreen' loading={button.getAdvertisemens} onClick={() => { disPatch('clear'); disPatch('getAdvertisemens') }} icon='fas fa-sync-alt' /></th>
             </tr>
           </thead>
           <tbody>
