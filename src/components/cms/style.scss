@@ -1,4 +1,10 @@
 .clsCms {
+  .clsItem {
+    > h3 {
+      padding: 10px 0;
+    }
+  }
+
   .clsAdv {
     overflow-x: scroll;
     table {
@@ -20,6 +26,12 @@
           margin-top: 0;
         }
       }
+    }
+  }
+
+  .clsImg {
+    #file {
+      display: none;
     }
   }
 }
