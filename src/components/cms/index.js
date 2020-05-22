@@ -145,8 +145,8 @@ export default function Cms (props) {
 
   return (
     <div className='clsCms'>
-      <center><h1>Welcom</h1></center>
-      <h3><strong>Advertisement</strong></h3>
+      <center><h1>Chào Mừng Bạn Đến Với Quản Lý Nội Dung Hệ Thống</h1></center>
+      <h3><strong>Bảng Hiệu</strong></h3>
       <div className='clsAdv'>
         <Table striped bordered hover>
           <thead>
@@ -194,7 +194,7 @@ export default function Cms (props) {
                       <td><Textbox type='text' name='video' value={item.video} onChange={onChangeEdit} title='' /></td>
                     </React.Fragment>
                 }
-                <td>
+                <td className='center'>
                   <Button name='update' className={`clrGreen ${editIdx === idx ? '' : 'none'}`} onClick={e => disPatch({type: 'update', e})} loading={button.update} icon='fas fa-share-square' />
                   <Button name='showConfirm' className={`clrGreen ${editIdx === idx ? 'none' : ''}`} onClick={e => disPatch({type: 'showConfirm', index: idx, e})} noLoading icon='fas fa-trash-alt' />
                 </td>
@@ -209,7 +209,7 @@ export default function Cms (props) {
         </Modal.Header>
         <Modal.Body>{`Bạn có chắc là muốn xoá Bảng hiệu ${_.get(advertisements[showIdx], 'title', '')}`}</Modal.Body>
         <Modal.Footer>
-          <Button name='cancel' onClick={() => disPatch('onHide')} icon='fa fa-reply-all' value='Huỷ' />
+          <Button name='cancel' noLoading onClick={() => disPatch('onHide')} icon='fa fa-reply-all' value='Huỷ' />
           <Button name='delete' className='clrBlue' onClick={() => disPatch('delete')} loading={button.delete} icon='fas fa-trash-alt' value='Xoá' />
         </Modal.Footer>
       </Modal>
