@@ -1,20 +1,24 @@
 .clsCms {
-  table {
-    th {
-      padding: 5px 5px;
-      vertical-align: middle !important;
-      text-align: center;
+  .clsAdv {
+    overflow-x: scroll;
+    table {
+      min-width: 1000px;
+      th {
+        padding: 5px 5px;
+        vertical-align: middle !important;
+        text-align: center;
 
-      strong {
-        line-height: 35px;
+        strong {
+          line-height: 35px;
+        }
       }
-    }
-    td {
-      padding: 0 5px;
-      vertical-align: middle;
+      td {
+        padding: 0 5px;
+        vertical-align: middle;
 
-      .clsInput input{
-        margin-top: 0;
+        .clsInput input{
+          margin-top: 0;
+        }
       }
     }
   }

@@ -145,18 +145,18 @@ export default function Cms (props) {
 
   return (
     <div className='clsCms'>
-      <center>
-        <h1>Welcom</h1>
-        <h3><strong>Advertisement</strong></h3>
+      <center><h1>Welcom</h1></center>
+      <h3><strong>Advertisement</strong></h3>
+      <div className='clsAdv'>
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>#</th>
               <th><strong>Tiêu đề</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'title'}) }} icon={getIconSort(sort.title)} /></th>
-              <th><strong>Giá cả</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
+              <th><strong>Giá</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
               <th><strong>Thời gian</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'time'}) }} icon={getIconSort(sort.time)} /></th>
               <th><strong>Miêu tả</strong></th>
-              <th><strong>Hình ảnh</strong></th>
+              <th><strong>Hình</strong></th>
               <th><strong>video</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'video'}) }} icon={getIconSort(sort.video)} /></th>
               <th><Button className='clrGreen' loading={button.getAdvertisemens} onClick={() => { disPatch('clear'); disPatch('getAdvertisemens') }} icon='fas fa-sync-alt' /></th>
             </tr>
@@ -196,13 +196,13 @@ export default function Cms (props) {
                 }
                 <td>
                   <Button name='update' className={`clrGreen ${editIdx === idx ? '' : 'none'}`} onClick={e => disPatch({type: 'update', e})} loading={button.update} icon='fas fa-share-square' />
-                  <Button name='showConfirm' className={`clrGreen ${editIdx === idx ? 'none' : ''}`} onClick={e => disPatch({type: 'showConfirm', index: idx, e})} loading={false} icon='fas fa-trash-alt' />
+                  <Button name='showConfirm' className={`clrGreen ${editIdx === idx ? 'none' : ''}`} onClick={e => disPatch({type: 'showConfirm', index: idx, e})} noLoading icon='fas fa-trash-alt' />
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
-      </center>
+      </div>
       <Modal show={showIdx > -1} onHide={() => disPatch('onHide')} centered>
         <Modal.Header closeButton >
           <Modal.Title>Xoá bảng hiệu</Modal.Title>
