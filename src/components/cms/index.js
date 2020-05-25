@@ -15,7 +15,7 @@ export default function Cms (props) {
           <Advertisement {...props} />
         </Tab>
         <Tab eventKey='image' title='Hình ảnh'>
-          <Image />
+          <Image {...props} />
         </Tab>
       </Tabs>
     </div>

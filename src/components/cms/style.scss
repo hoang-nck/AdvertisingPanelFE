@@ -33,5 +33,13 @@
     #file {
       display: none;
     }
+    > div {
+      margin-top: 15px;;
+      img {
+        width: 30%;
+        height: auto;
+        float: left;
+      }
+    }
   }
 }

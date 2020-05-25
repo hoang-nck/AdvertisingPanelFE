@@ -1,6 +1,6 @@
 import config from '../utils/config'
 
-export default {
+module.exports = {
   baseUrl: config.serverUrl,
   uploadFile: '/upload',
 
@@ -17,5 +17,10 @@ export default {
 
   advertisement: {
     base: '/advertisements'
+  },
+
+  file: {
+    base: '/files',
+    uploadFile: 'files/uploadfile'
   }
 }

@@ -5,7 +5,7 @@ import RestClient from '../restClient'
 export default class Base {
 
   constructor(url) {
-    url = url
+    this.url = url
   }
 
   execute = (url, method, data, ...rest) => {
@@ -50,11 +50,5 @@ export default class Base {
 
   destroy = id => {
     return this.execute(`${this.url.base}/destroy/${id}`, 'delete', null)
-  }
-
-  uploadFile = file => {
-    let body = new FormData()
-    body.append('file', file)
-    return this.execute(this.url.base, 'post', body)
   }
 }

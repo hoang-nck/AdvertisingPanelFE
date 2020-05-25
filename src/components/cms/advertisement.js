@@ -143,7 +143,7 @@ export default function Advertisement (props) {
 
   return (
     <div className='clsAdv clsItem'>
-      {/* <h3><strong>Quản lý Bảng Hiệu</strong></h3> */}
+      <h3><strong>Quản lý Bảng Hiệu</strong></h3>
       <Table striped bordered hover>
         <thead>
           <tr>
