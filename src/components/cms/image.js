@@ -39,14 +39,19 @@ const reducer = async (state, action, props) => {
         }
       }
     case 'uploadFile':
-      rs = await fileCtr.uploadFile(state.file.file)()
       data = {}
 
-      if (rs.message) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Đăng hình thành công!' })
-        data = { file: {}, images: [...state.images, rs.data] }
-      } else {
-        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
+      try {
+        rs = await fileCtr.uploadFile(state.file.file)()
+
+        if (rs.message) {
+          props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Đăng hình thành công!' })
+          data = { file: {}, images: [...state.images, rs.data] }
+        } else {
+          props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
+        }
+      } catch (error) {
+        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: error.message })
       }
 
       return {
