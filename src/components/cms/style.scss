@@ -34,16 +34,6 @@
       display: none;
     }
 
-    .clsSearch {
-      margin-top: 10px;
-      .clsInput {
-        max-width: 280px;
-      }
-      .clsBtn {
-        line-height: 28px;
-      }
-    }
-
     .card-columns {
       margin-top: 15px;
       .card {
@@ -74,4 +64,35 @@
       }
     }
   }
+}
+
+.clsSearch {
+  margin-top: 10px;
+  .clsInput {
+    max-width: 280px;
+  }
+  .clsBtn {
+    line-height: 28px;
+  }
+}
+
+.clsImgChoosed {
+  img {
+    height: 50px;
+    width: auto;
+  }
+}
+
+td .clsImgDiv {
+  min-width: 300px;
+  .clsImgChoosed {
+    display: inline-block;
+    img {
+      height: 36px;
+      width: auto;
+    }
+  }
+}
+.card.choosed {
+  background-color: #066ef6;
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Table, Modal } from 'react-bootstrap'
+import { Table, Modal, CardColumns, Card, Image } from 'react-bootstrap'
 import _ from 'lodash'
 
 import common from '../../utils/common'
@@ -8,21 +8,41 @@ import Button from '../common/button'
 
 import config from '../../utils/config'
 import * as advertisementCtr from '../../api/controller/advertisement'
+import * as fileCtr from '../../api/controller/file'
 
 const initialState = {
   showIdx: -1,
   editIdx: -1,
+  images: [],
+  imgChoosed: [],
+  search: '',
   button: { getAdvertisemens: 1 },
   sort: {},
   advertisement: {},
   advertisements: []
 }
 
-const reducer = async (state, action, props) => {
+const reducer = async (state, action, props, dispatch) => {
   let rs, data
   const getButton = name => ({ button: { ...state.button, [name]: _.get(state.button, name, 1) + 2 } })
 
   switch (action.type) {
+    case 'clearImages':
+      return {
+        ...state,
+        images: []
+      }
+    case 'getImages':
+      rs = await fileCtr.get({sort: 'name'})()
+      data = { }
+      if (rs.success) {
+        props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Tải danh sách hình thành công!' })
+        data.images = rs.data
+      } else {
+        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
+      }
+
+      return {...state, ...data, ...getButton(action.type)}
     case 'getAdvertisemens':
       rs = await advertisementCtr.get({sort: 'title'})()
       data = { }
@@ -37,6 +57,7 @@ const reducer = async (state, action, props) => {
     case 'sort':
       let items = _.sortBy(state.advertisements, [action.field])
       state.sort[action.field] && (items = items.reverse())
+
       return {
         ...state,
         advertisements: items,
@@ -46,6 +67,11 @@ const reducer = async (state, action, props) => {
       return {
         ...state,
         advertisements: []
+      }
+    case 'onChangeSearch':
+      return {
+        ...state,
+        search: action.value
       }
     case 'onChangeNew':
       return {
@@ -69,7 +95,7 @@ const reducer = async (state, action, props) => {
       }
     case 'save':
       data = {}
-      rs = await advertisementCtr.post(state.advertisement)()
+      rs = await advertisementCtr.post({ ...state.advertisement, images: state.imgChoosed.map(el => el) })()
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Tạo mới thành công!' })
         data = {
@@ -104,10 +130,18 @@ const reducer = async (state, action, props) => {
         ...state,
         showIdx: action.index
       }
+    case 'showImageModel':
+      action.e.preventDefault()
+      action.e.stopPropagation()
+
+      return {
+        ...state,
+        showimgModalIdx: action.index
+      }
     case 'onHide':
       return {
         ...state,
-        showIdx: -1
+        [action.name]: -1
       }
     case 'delete':
       data = {}
@@ -122,6 +156,21 @@ const reducer = async (state, action, props) => {
       }
 
       return {...state, ...data, ...getButton(action.type)}
+    case 'onClickImg':
+      const img = state.images[action.index]
+
+      if (state.showimgModalIdx === 0) {
+        const idx = state.imgChoosed.findIndex(el => el === img.path)
+        idx >= 0 ? state.imgChoosed.splice(idx, 1) : state.imgChoosed.push(img.path)
+      } else {
+        const adv = state.advertisements[state.showimgModalIdx - 1]
+        const idx = (adv.images || []).findIndex(el => el === img.path)
+        idx >= 0 ? adv.images.splice(idx, 1) : adv.images = [...adv.images || [], img.path]
+      }
+
+      return {
+        ...state
+      }
     default:
       return state
   }
@@ -135,11 +184,12 @@ const getIconSort = value => {
 
 export default function Advertisement (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
-  const { advertisement, editIdx, showIdx, advertisements, button, sort } = state
+  const { advertisement, editIdx, showIdx, showimgModalIdx, advertisements, button, sort, images, search, imgChoosed } = state
   const onChangeNew = e => disPatch({type: 'onChangeNew', e: _.pick(e.target, ['name', 'value'])})
   const onChangeEdit = e => disPatch({type: 'onChangeEdit', e: _.pick(e.target, ['name', 'value'])})
 
   useEffect(() => { disPatch('getAdvertisemens') }, [])
+  const choosedImages = showimgModalIdx === 0 ? imgChoosed : showimgModalIdx > 0 ? advertisements[showimgModalIdx - 1].images || [] : []
 
   return (
     <div className='clsAdv clsItem'>
@@ -152,7 +202,7 @@ export default function Advertisement (props) {
             <th><strong>Giá</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
             <th><strong>Thời gian</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'time'}) }} icon={getIconSort(sort.time)} /></th>
             <th><strong>Miêu tả</strong></th>
-            <th><strong>Hình</strong></th>
+            <th className='col-auto'><strong>Hình</strong></th>
             <th><strong>video</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'video'}) }} icon={getIconSort(sort.video)} /></th>
             <th><Button className='clrGreen' loading={button.getAdvertisemens} onClick={() => { disPatch('clear'); disPatch('getAdvertisemens') }} icon='fas fa-sync-alt' /></th>
           </tr>
@@ -164,7 +214,12 @@ export default function Advertisement (props) {
             <td><Textbox type='number' name='price' value={advertisement.price} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='text' name='time' value={advertisement.time} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='text' name='description' value={advertisement.description} onChange={onChangeNew} title='' /></td>
-            <td><Textbox type='text' name='images' value={advertisement.images} onChange={onChangeNew} title='' /></td>
+            <td className='col-auto'>
+              <div className='clsImgDiv'>
+                <Button name='chooseImg' className='clrGreen' onClick={e => disPatch({type: 'showImageModel', index: 0, e})} noLoading icon='far fa-arrow-alt-circle-right' />
+                <span className='clsImgChoosed'>{imgChoosed.map((img, idx) => <Image src={config.serverUrl + img} />)}</span>
+              </div>
+            </td>
             <td><Textbox type='text' name='video' value={advertisement.video} onChange={onChangeNew} title='' /></td>
             <td><Button name='save' className='clrGreen' onClick={() => disPatch('save')} loading={button.save} icon='fas fa-share-square' /></td>
           </tr>
@@ -178,7 +233,11 @@ export default function Advertisement (props) {
                     <td>{item.price}</td>
                     <td>{item.time}</td>
                     <td>{item.description}</td>
-                    <td>{item.images}</td>
+                    <td className='col-auto'>
+                      <div className='clsImgDiv'>
+                        <span className='clsImgChoosed'>{item.images.map((img, idx) => <Image key={idx} src={config.serverUrl + img} />)}</span>
+                      </div>
+                    </td>
                     <td>{item.video}</td>
                   </React.Fragment>
                   : <React.Fragment>
@@ -186,7 +245,12 @@ export default function Advertisement (props) {
                     <td><Textbox type='number' name='price' value={item.price} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='text' name='time' value={item.time} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='text' name='description' value={item.description} onChange={onChangeEdit} title='' /></td>
-                    <td><Textbox type='text' name='images' value={item.images} onChange={onChangeEdit} title='' /></td>
+                    <td className='col-auto'>
+                      <div className='clsImgDiv'>
+                        <Button name='chooseImg' className='clrGreen' onClick={e => disPatch({type: 'showImageModel', index: idx + 1, e})} noLoading icon='far fa-arrow-alt-circle-right' />
+                        <span className='clsImgChoosed'>{(item.images || []).map((img, idx) => <Image key={idx} src={config.serverUrl + img} />)}</span>
+                      </div>
+                    </td>
                     <td><Textbox type='text' name='video' value={item.video} onChange={onChangeEdit} title='' /></td>
                   </React.Fragment>
               }
@@ -198,14 +262,40 @@ export default function Advertisement (props) {
           ))}
         </tbody>
       </Table>
-      <Modal show={showIdx > -1} onHide={() => disPatch('onHide')} centered>
+      <Modal show={showIdx > -1} onHide={() => disPatch({type: 'onHide', name: 'showIdx'})} centered>
         <Modal.Header closeButton >
           <Modal.Title>Xoá bảng hiệu</Modal.Title>
         </Modal.Header>
         <Modal.Body>{`Bạn có chắc là muốn xoá Bảng hiệu ${_.get(advertisements[showIdx], 'title', '')}`}</Modal.Body>
         <Modal.Footer>
-          <Button name='cancel' noLoading onClick={() => disPatch('onHide')} icon='fa fa-reply-all' value='Huỷ' />
+          <Button name='cancel' noLoading onClick={() => disPatch({type: 'onHide', name: 'showIdx'})} icon='fa fa-reply-all' value='Huỷ' />
           <Button name='delete' className='clrBlue' onClick={() => disPatch('delete')} loading={button.delete} icon='fas fa-trash-alt' value='Xoá' />
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showimgModalIdx > -1} onHide={() => disPatch({type: 'onHide', name: 'showimgModalIdx'})} size='lg' >
+        <Modal.Header closeButton >
+          <Modal.Title>
+            Chọn hình: <span className='clsImgChoosed'>{choosedImages.map((img, idx) => <Image title={img.name} src={config.serverUrl + img} />)}</span>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='clsSearch'>
+            <Textbox type='text' name='search' value={search} onChange={e => disPatch({type: 'onChangeSearch', value: _.get(e, 'target.value', '')})} title='Tên hình' />
+            <Button className='clrGreen floatR' loading={button.getImages} onClick={() => { disPatch('clearImages'); disPatch('getImages') }} icon='fas fa-sync-alt' />
+          </div> <br />
+          <CardColumns>
+            {images.filter(item => (item.name || '').toLowerCase().search(search.toLowerCase()) >= 0).map((item, idx) => (
+              <Card key={idx} className={choosedImages.findIndex(el => el === item.path) >= 0 ? 'choosed' : ''}>
+                <Card.Img variant='top' src={config.serverUrl + item.path} onClick={() => disPatch({type: 'onClickImg', index: idx})} />
+                <Card.Body>
+                  <Card.Title>{item.name}</Card.Title>
+                </Card.Body>
+              </Card>
+            ))}
+          </CardColumns>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button name='chooseImg' className='clrBlue' onClick={() => disPatch({type: 'onHide', name: 'showimgModalIdx'})} noLoading icon='far fa-paper-plane' value='Xong' />
         </Modal.Footer>
       </Modal>
     </div>

@@ -44,7 +44,7 @@ export default {
     const [state, setState] = useState(initialState)
 
     const dispatch = async params => {
-      const nextState = await reducer(state, _.isString(params) ? {type: params} : params, props)
+      const nextState = await reducer(state, _.isString(params) ? {type: params} : params, props, dispatch)
       nextState && setState(nextState)
     }
 

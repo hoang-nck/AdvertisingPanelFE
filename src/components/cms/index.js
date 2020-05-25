@@ -10,7 +10,7 @@ export default function Cms (props) {
   return (
     <div className='clsCms'>
       {/* <center><h1>Chào Mừng Bạn Đến Với Quản Lý Nội Dung Hệ Thống</h1></center> */}
-      <Tabs defaultActiveKey='image' >
+      <Tabs defaultActiveKey='advertisement' >
         <Tab eventKey='advertisement' title='Bảng hiệu'>
           <Advertisement {...props} />
         </Tab>
