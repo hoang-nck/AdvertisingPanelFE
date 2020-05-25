@@ -21,7 +21,6 @@ const reducer = async (state, action, props) => {
   switch (action.type) {
     case 'getImages':
       rs = await fileCtr.get({sort: 'name'})()
-      alert(rs.message)
       data = { }
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Tải danh sách hình thành công!' })
@@ -41,18 +40,13 @@ const reducer = async (state, action, props) => {
       }
     case 'uploadFile':
       data = {}
-
-      try {
-        rs = await fileCtr.uploadFile(state.file.file)()
-
-        if (rs.message) {
-          props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Đăng hình thành công!' })
-          data = { file: {}, images: [...state.images, rs.data] }
-        } else {
-          props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
-        }
-      } catch (error) {
-        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: error.message })
+      rs = await fileCtr.uploadFile(state.file.file)()
+      alert(rs.message)
+      if (rs.message) {
+        props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Đăng hình thành công!' })
+        data = { file: {}, images: [...state.images, rs.data] }
+      } else {
+        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
       }
 
       return {
@@ -71,8 +65,6 @@ export default function Image (props) {
   const { button, file, images } = state
 
   useEffect(() => { disPatch('getImages') }, [])
-
-  alert(images.reduce((a, i) => a + '     ' + i.path, ''))
 
   return (
     <div className='clsImg clsItem'>

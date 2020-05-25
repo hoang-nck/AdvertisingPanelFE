@@ -77,7 +77,9 @@ export default class RestClient {
       }
 
       common.log(log)
+      alert(log)
       const response = func != null ? await func : null
+      alert(response.status, response.message)
 
       return this.setDataResponse(response)
     } catch (error) {
