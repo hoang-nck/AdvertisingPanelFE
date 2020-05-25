@@ -41,8 +41,7 @@ const reducer = async (state, action, props) => {
     case 'uploadFile':
       data = {}
       rs = await fileCtr.uploadFile(state.file.file)()
-      alert(rs.message)
-      if (rs.message) {
+      if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Đăng hình thành công!' })
         data = { file: {}, images: [...state.images, rs.data] }
       } else {

@@ -77,11 +77,7 @@ export default class RestClient {
       }
 
       common.log(log)
-      alert(log)
       const response = func != null ? await func : null
-      alert(response)
-      alert(response.message)
-      alert(response.status)
 
       return this.setDataResponse(response)
     } catch (error) {
@@ -115,7 +111,7 @@ export default class RestClient {
           data = new ApiResponse({
             success: false,
             statusCode: response.status,
-            message: 'Request error'
+            message: 'Request error! ' + response.message || ''
           })
         }
       }
