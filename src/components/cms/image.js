@@ -21,6 +21,7 @@ const reducer = async (state, action, props) => {
   switch (action.type) {
     case 'getImages':
       rs = await fileCtr.get({sort: 'name'})()
+      alert(rs.message)
       data = { }
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Tải danh sách hình thành công!' })
@@ -70,6 +71,8 @@ export default function Image (props) {
   const { button, file, images } = state
 
   useEffect(() => { disPatch('getImages') }, [])
+
+  alert(images.reduce((a, i) => a + '     ' + i.path, ''))
 
   return (
     <div className='clsImg clsItem'>
