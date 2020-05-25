@@ -79,7 +79,9 @@ export default class RestClient {
       common.log(log)
       alert(log)
       const response = func != null ? await func : null
-      alert(response.status, response.message)
+      alert(response)
+      alert(response.message)
+      alert(response.status)
 
       return this.setDataResponse(response)
     } catch (error) {
@@ -91,7 +93,7 @@ export default class RestClient {
 
   setDataResponse = (response, status = null) => {
     let data = null
-    if (response == null) {
+    if (!response) {
       data = new ApiResponse({
         success: false,
         statusCode: 501,
