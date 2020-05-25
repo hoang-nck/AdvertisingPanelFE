@@ -34,9 +34,20 @@
       display: none;
     }
 
+    .clsSearch {
+      margin-top: 10px;
+      .clsInput {
+        max-width: 280px;
+      }
+      .clsBtn {
+        line-height: 28px;
+      }
+    }
+
     .card-columns {
       margin-top: 15px;
       .card {
+        background-color: rgba(255, 255, 255, 0.452);
         .clsBtn {
           position: absolute;
           right: 8px;
@@ -45,8 +56,19 @@
           box-shadow: 0px 0px 10px 5px #f8f6f6
         }
         &:hover {
+          background-color: black;
           .clsBtn {
             display: block;
+          }
+          .card-title {
+            color: white;
+          }
+        }
+
+        .card-body {
+          padding: 8px;
+          .card-title {
+            margin-bottom: 0;
           }
         }
       }

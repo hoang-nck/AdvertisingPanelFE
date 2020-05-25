@@ -3,14 +3,16 @@ import { Card, CardColumns, Modal } from 'react-bootstrap'
 import _ from 'lodash'
 
 import Button from '../common/button'
+import Textbox from '../common/inputs/textbox'
 import common from '../../utils/common'
 
 import config from '../../utils/config'
 import * as fileCtr from '../../api/controller/file'
 
 const initialState = {
+  search: '',
   images: [],
-  button: {},
+  button: { getImages: 1 },
   file: {}
 }
 
@@ -43,7 +45,7 @@ const reducer = async (state, action, props) => {
       rs = await fileCtr.uploadFile(state.file.file)()
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Đăng hình thành công!' })
-        data = { file: {}, images: [...state.images, rs.data] }
+        data = { file: {}, images: [rs.data, ...state.images] }
       } else {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
       }
@@ -63,6 +65,11 @@ const reducer = async (state, action, props) => {
         ...state,
         showIdx: -1
       }
+    case 'clear':
+      return {
+        ...state,
+        images: []
+      }
     case 'delete':
       data = {}
       rs = await fileCtr.destroy(state.images[state.showIdx]._id)()
@@ -76,6 +83,11 @@ const reducer = async (state, action, props) => {
       }
 
       return {...state, ...data, ...getButton(action.type)}
+    case 'onChange':
+      return {
+        ...state,
+        search: action.value
+      }
     default:
       return state
   }
@@ -84,7 +96,7 @@ const reducer = async (state, action, props) => {
 export default function Image (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
   const fileEl = useRef(null)
-  const { button, file, images, showIdx } = state
+  const { button, file, images, showIdx, search } = state
 
   useEffect(() => { disPatch('getImages') }, [])
 
@@ -95,8 +107,13 @@ export default function Image (props) {
       <Button className='clrGreen' noLoading title='Chọn tệp từ máy của bạn' value='Chọn tệp' icon='fas fa-file-image' onClick={() => document.getElementById('file').click()} />
       <span> {_.get(file, 'file.name', '')} </span>
       <Button className='clrBlue' disable={_.isEmpty(file)} loading={button.uploadFile} title='Tải tệp lên hệ thống' value='Tải lên' icon='fas fa-share-square' onClick={() => disPatch('uploadFile')} />
+      <div className='clsSearch'>
+        <Textbox type='text' name='search' value={search} onChange={e => disPatch({type: 'onChange', value: _.get(e, 'target.value', '')})} title='Tên hình' />
+        <Button className='clrGreen floatR' loading={button.getImages} onClick={() => { disPatch('clear'); disPatch('getImages') }} icon='fas fa-sync-alt' />
+      </div>
+
       <CardColumns>
-        {images.map((item, idx) => (
+        {images.filter(item => (item.name || '').toLowerCase().search(search.toLowerCase()) >= 0).map((item, idx) => (
           <Card key={idx}>
             <Card.Img variant='top' src={config.serverUrl + item.path} />
             <Card.Body>
