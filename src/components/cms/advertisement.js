@@ -44,6 +44,7 @@ export default function Advertisement (props) {
         <thead>
           <tr>
             <th>#</th>
+            <th><strong>Ưu tiên</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'sequence'}) }} icon={getIconSort(sort.title)} /></th>
             <th><strong>Tiêu đề</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'title'}) }} icon={getIconSort(sort.title)} /></th>
             <th><strong>Giá</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
             <th><strong>Thời gian</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'time'}) }} icon={getIconSort(sort.time)} /></th>
@@ -56,6 +57,7 @@ export default function Advertisement (props) {
         <tbody>
           <tr key={0}>
             <td>0</td>
+            <td><Textbox type='number' name='sequence' value={advertisement.sequence} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='text' name='title' value={advertisement.title} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='number' name='price' value={advertisement.price} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='text' name='time' value={advertisement.time} onChange={onChangeNew} title='' /></td>
@@ -75,6 +77,7 @@ export default function Advertisement (props) {
               {
                 editIdx !== idx
                   ? <React.Fragment>
+                    <td>{item.sequence}</td>
                     <td>{item.title}</td>
                     <td>{item.price}</td>
                     <td>{item.time}</td>
@@ -87,6 +90,7 @@ export default function Advertisement (props) {
                     <td>{item.video}</td>
                   </React.Fragment>
                   : <React.Fragment>
+                    <td><Textbox type='number' name='sequence' value={item.sequence} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='text' name='title' value={item.title} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='number' name='price' value={item.price} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='text' name='time' value={item.time} onChange={onChangeEdit} title='' /></td>
