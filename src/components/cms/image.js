@@ -7,90 +7,13 @@ import Textbox from '../common/inputs/textbox'
 import common from '../../utils/common'
 
 import config from '../../utils/config'
-import * as fileCtr from '../../api/controller/file'
+import { image as reducer } from './reducer'
 
 const initialState = {
   search: '',
   images: [],
   button: { getImages: 1 },
   file: {}
-}
-
-const reducer = async (state, action, props) => {
-  let rs, data
-  const getButton = name => ({ button: { ...state.button, [name]: _.get(state.button, name, 1) + 2 } })
-
-  switch (action.type) {
-    case 'getImages':
-      rs = await fileCtr.get({sort: 'name'})()
-      data = { }
-      if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Tải danh sách hình thành công!' })
-        data.images = rs.data
-      } else {
-        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
-      }
-
-      return {...state, ...data, ...getButton(action.type)}
-    case 'onChangeFile':
-      return {
-        ...state,
-        file: {
-          file: _.get(action.fileEl, 'current.files[0]', {}),
-          fileEl: action.fileEl
-        }
-      }
-    case 'uploadFile':
-      data = {}
-      rs = await fileCtr.uploadFile(state.file.file)()
-      if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Đăng hình thành công!' })
-        data = { file: {}, images: [rs.data, ...state.images] }
-      } else {
-        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
-      }
-
-      return {
-        ...state,
-        ...data,
-        ...getButton(action.type)
-      }
-    case 'showConfirm':
-      return {
-        ...state,
-        showIdx: action.index
-      }
-    case 'onHide':
-      return {
-        ...state,
-        showIdx: -1
-      }
-    case 'clear':
-      return {
-        ...state,
-        images: []
-      }
-    case 'delete':
-      data = {}
-      rs = await fileCtr.destroy(state.images[state.showIdx]._id)()
-
-      if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ản', body: 'Xoá thành công!' })
-        state.images.splice(state.showIdx, 1)
-        data.showIdx = -1
-      } else {
-        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Error!', body: rs.message })
-      }
-
-      return {...state, ...data, ...getButton(action.type)}
-    case 'onChange':
-      return {
-        ...state,
-        search: action.value
-      }
-    default:
-      return state
-  }
 }
 
 export default function Image (props) {
