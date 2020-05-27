@@ -48,7 +48,7 @@ export default connect(state => ({
     <div>
       <main>
         <Switch>
-          <Route path={'/'} exact component={Home} />
+          <Route path={'/'} exact component={() => <Home {...props} />} />
           <Route path={`/contact`} component={UserSubLayout} />
           <Route path={`/workspace`} component={WorkSpace} />
           {logged && <Route path={`/example`} component={() => <Example value1={7} />} />}

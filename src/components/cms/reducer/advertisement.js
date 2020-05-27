@@ -18,7 +18,7 @@ const advertisement = async (state, action, props) => {
 
       return {...state, ...data, ...getButton(action.type)}
     },
-    getAdvertisemens: async () => {
+    getAdvertisements: async () => {
       const rs = await advertisementCtr.get({sort: 'title'})()
       const data = { }
       if (rs.success) {

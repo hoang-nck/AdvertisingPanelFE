@@ -1,46 +1,68 @@
 body {
-    background:#ddd url(/images/backgound.jpg) repeat top left;
-    font-family: 'Roboto Slab';
+  background : #ddd url(/images/backgound.jpg) repeat top left;
+  font-family: 'Roboto Slab';
 }
-body > .modal-backdrop {
-    display: none !important;
+
+body>.modal-backdrop {
+  display: none !important;
 }
 
 div.clsHeader {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index : 2;
 }
+
 div.modal {
-    background: rgba(0, 0, 0, 0.5)
+  background: rgba(0, 0, 0, 0.5)
 }
+
 .modal-content {
-    background:#ddd url(/images/backgound.jpg) repeat top left;
+  background: #ddd url(/images/backgound.jpg) repeat top left;
 }
 
 @keyframes MoveUp {
-    0% {bottom: 0;}
-    25% {bottom: 50px;}
-    50% {bottom: 100px; opacity: .8;}
-    75% {bottom: 150px; opacity: .7;}
-    100% {bottom: 200px; opacity: 0; display: none;}
+  0% {
+    bottom: 0;
+  }
+
+  25% {
+    bottom: 50px;
+  }
+
+  50% {
+    bottom : 100px;
+    opacity: .8;
+  }
+
+  75% {
+    bottom : 150px;
+    opacity: .7;
+  }
+
+  100% {
+    bottom : 200px;
+    opacity: 0;
+    display: none;
+  }
 }
 
 div.clsAlert {
-    z-index: 9999999;
-    position: relative;
-    div.alert {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        animation: MoveUp 3s linear alternate-reverse ;
-    }
+  z-index : 9999999;
+  position: relative;
+
+  div.alert {
+    position : fixed;
+    right    : 0;
+    bottom   : 0;
+    animation: MoveUp 3s linear alternate-reverse;
+  }
 }
 
 .slick-dots {
-    position: unset;
-    bottom: 0;
+  position: unset;
+  bottom  : 0;
 }
 
 #root .clsMenu.navbar {
-    background-color: #83c5ea2e;
+  background-color: #83c5ea2e;
 }

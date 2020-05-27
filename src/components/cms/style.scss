@@ -1,28 +1,31 @@
 .clsCms {
   .clsItem {
-    > h3 {
+    >h3 {
       padding: 10px 0;
     }
   }
 
   .clsAdv {
     overflow-x: scroll;
+
     table {
       min-width: 1000px;
+
       th {
-        padding: 5px 5px;
+        padding       : 5px 5px;
         vertical-align: middle !important;
-        text-align: center;
+        text-align    : center;
 
         strong {
           line-height: 35px;
         }
       }
+
       td {
-        padding: 0 5px;
+        padding       : 0 5px;
         vertical-align: middle;
 
-        .clsInput input{
+        .clsInput input {
           margin-top: 0;
         }
       }
@@ -36,20 +39,25 @@
 
     .card-columns {
       margin-top: 15px;
+
       .card {
         background-color: rgba(255, 255, 255, 0.452);
+
         .clsBtn {
-          position: absolute;
-          right: 8px;
-          top: 8px;
-          display: none;
+          position  : absolute;
+          right     : 8px;
+          top       : 8px;
+          display   : none;
           box-shadow: 0px 0px 10px 5px #f8f6f6
         }
+
         &:hover {
           background-color: black;
+
           .clsBtn {
             display: block;
           }
+
           .card-title {
             color: white;
           }
@@ -57,6 +65,7 @@
 
         .card-body {
           padding: 8px;
+
           .card-title {
             margin-bottom: 0;
           }
@@ -68,13 +77,16 @@
 
 .clsSearch {
   margin-top: 10px;
+
   .clsInput {
     max-width: 280px;
   }
+
   .clsBtn {
     line-height: 28px;
   }
 }
+
 .clsAddImg {
   span {
     max-width: 280px;
@@ -84,20 +96,23 @@
 .clsImgChoosed {
   img {
     height: 50px;
-    width: auto;
+    width : auto;
   }
 }
 
 td .clsImgDiv {
   min-width: 300px;
+
   .clsImgChoosed {
     display: inline-block;
+
     img {
       height: 36px;
-      width: auto;
+      width : auto;
     }
   }
 }
+
 .card.choosed {
   background-color: #066ef6;
 }

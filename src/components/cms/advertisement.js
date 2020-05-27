@@ -16,7 +16,7 @@ const initialState = {
   imgChoosed: [],
   imgValue: '',
   search: '',
-  button: { getAdvertisemens: 1 },
+  button: { getAdvertisements: 1 },
   sort: {},
   advertisement: {},
   advertisements: []
@@ -34,7 +34,7 @@ export default function Advertisement (props) {
   const onChangeNew = e => disPatch({type: 'onChangeNew', e: _.pick(e.target, ['name', 'value'])})
   const onChangeEdit = e => disPatch({type: 'onChangeEdit', e: _.pick(e.target, ['name', 'value'])})
 
-  useEffect(() => { disPatch('getAdvertisemens') }, [])
+  useEffect(() => { disPatch('getAdvertisements') }, [])
   const choosedImages = showimgModalIdx === 0 ? imgChoosed : showimgModalIdx > 0 ? advertisements[showimgModalIdx - 1].images || [] : []
 
   return (
@@ -51,7 +51,7 @@ export default function Advertisement (props) {
             <th><strong>Miêu tả</strong></th>
             <th className='col-auto'><strong>Hình</strong></th>
             <th><strong>video</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'video'}) }} icon={getIconSort(sort.video)} /></th>
-            <th><Button className='clrGreen' loading={button.getAdvertisemens} onClick={() => { disPatch('clear'); disPatch('getAdvertisemens') }} icon='fas fa-sync-alt' /></th>
+            <th><Button className='clrGreen' loading={button.getAdvertisements} onClick={() => { disPatch('clear'); disPatch('getAdvertisements') }} icon='fas fa-sync-alt' /></th>
           </tr>
         </thead>
         <tbody>

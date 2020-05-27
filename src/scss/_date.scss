@@ -1,83 +1,99 @@
 .clsDate {
-    display: inline-block;
-    vertical-align: top;
-    .clsDateInput {
-        position: relative;
-        cursor: pointer;
-        min-width: 100px;
-        i.clsIconDate {
-            position: absolute;
-            right: 0;
-            font-size: 16px;
-            color: rgb(15, 129, 236);
-        }
-        i.clsIconDate:hover {
-            font-size: 20px;
-        }
-        i.clsIconDate:active {
-            color: rgb(180, 212, 241);
-        }
-        input[type="button"] {
-            cursor: pointer;
-        }
-        .clsDateMobile {
-            position: relative;
-            max-width: 470px;
-            z-index: 1;
+  display       : inline-block;
+  vertical-align: top;
 
-            div.datepicker {
-                bottom: inherit;
-            }    
-            .datepicker.ios {
-                min-width: 300px;
-                .datepicker-header {
-                    color: rgb(15, 69, 236);
-                }
-            }
-        }
+  .clsDateInput {
+    position : relative;
+    cursor   : pointer;
+    min-width: 100px;
 
-        .clsDateMobile.clsRight .datepicker{
-            right: 0;
-            left: auto;
-        }
-        .clsDateMobile.clsLeft .datepicker {
-            right: auto;
-            left: 0;
-        }
-
-        .clsDateText {
-            position: relative;
-            z-index: 1;
-            div {
-                display: flex;
-                padding: 5px 10px;
-                background-color: rgb(227, 237, 248);
-                position: absolute;                
-                max-width: 470px;
-                
-                .clsYyyy {
-                    width: 60px;
-                }
-                .clsMm {
-                    width: 45px;
-                }
-                .clsDd {
-                    width: 40px;
-                }
-                .clsHh {
-                    margin-left: 10px;
-                    width: 45px;
-                }
-                .clsMi {
-                    width: 50px;
-                }
-            }
-            div.clsRight {
-                right: 0;
-            }
-            div.clsLeft {
-                left: 0;
-            }
-        }
+    i.clsIconDate {
+      position : absolute;
+      right    : 0;
+      font-size: 16px;
+      color    : rgb(15, 129, 236);
     }
-}   
+
+    i.clsIconDate:hover {
+      font-size: 20px;
+    }
+
+    i.clsIconDate:active {
+      color: rgb(180, 212, 241);
+    }
+
+    input[type="button"] {
+      cursor: pointer;
+    }
+
+    .clsDateMobile {
+      position : relative;
+      max-width: 470px;
+      z-index  : 1;
+
+      div.datepicker {
+        bottom: inherit;
+      }
+
+      .datepicker.ios {
+        min-width: 300px;
+
+        .datepicker-header {
+          color: rgb(15, 69, 236);
+        }
+      }
+    }
+
+    .clsDateMobile.clsRight .datepicker {
+      right: 0;
+      left : auto;
+    }
+
+    .clsDateMobile.clsLeft .datepicker {
+      right: auto;
+      left : 0;
+    }
+
+    .clsDateText {
+      position: relative;
+      z-index : 1;
+
+      div {
+        display         : flex;
+        padding         : 5px 10px;
+        background-color: rgb(227, 237, 248);
+        position        : absolute;
+        max-width       : 470px;
+
+        .clsYyyy {
+          width: 60px;
+        }
+
+        .clsMm {
+          width: 45px;
+        }
+
+        .clsDd {
+          width: 40px;
+        }
+
+        .clsHh {
+          margin-left: 10px;
+          width      : 45px;
+        }
+
+        .clsMi {
+          width: 50px;
+        }
+      }
+
+      div.clsRight {
+        right: 0;
+      }
+
+      div.clsLeft {
+        left: 0;
+      }
+    }
+  }
+}
