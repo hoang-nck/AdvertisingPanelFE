@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap'
 import _ from 'lodash'
 
 import Cube from '../common/cube'
+import DetailAdvertisement from './detailAdvertisement'
 
 import common from '../../utils/common'
 import { advertisement as reducer } from './reducer'
@@ -29,8 +30,7 @@ export default function Home (props) {
           <Modal.Title className='w-100'>Chi tiết bảng hiệu</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>{advertisement.title}</h4>
-          <p>{advertisement.description}</p>
+          {!_.isEmpty(advertisement) && <DetailAdvertisement advertisement={advertisement} />}
         </Modal.Body>
       </Modal>
     </div>

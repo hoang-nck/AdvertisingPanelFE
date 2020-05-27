@@ -3,3 +3,20 @@
     padding: 15px 5px;
   }
 }
+
+.clsAdv {
+  >h4 {
+    text-align: center;
+  }
+
+  .clsSlideItem {
+    background-color: black;
+
+    img {
+      height: 400px;
+      width : auto;
+      margin: auto;
+    }
+
+  }
+}
