@@ -7,15 +7,14 @@
   "main": "index.js",
   "scripts": {
     "start-server": "babel-node app.js",
-    "nf-server": "nf start start-server -e .env",
-    "nf-server-prod": "nf start start-server -e prod.env",
+    "nf-server": "nf start -e prod.env",
     "build-dev": "babel-node builddev.js",
     "build-prod": "webpack -p --config webpack.config.prod.js",
     "dev": "npm-run-all --parallel build-dev start-server",
     "start-dev": "nf start dev -e .env",
     "start": "node production.js",
     "production": "nf start build-prod -e prod.env",
-    "runpm2": "pm2 start --name=pos-web npm -- run nf-server"
+    "runpm2": "pm2 start --name=fe-advertisement npm -- run nf-server"
   },
   "dependencies": {
     "apisauce": "^1.1.1",
