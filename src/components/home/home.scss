@@ -2,6 +2,33 @@
   h1 {
     padding: 15px 5px;
   }
+
+  .clsMain {
+    .clsPrice {
+      font-weight     : bold;
+      padding         : 5px;
+      background-color: #c0dcf55e;
+      margin          : 5px;
+      position        : absolute;
+      left            : 0;
+      top             : 0;
+      border          : 1px solid #4df5c2;
+      border-radius   : 5px;
+      box-shadow      : 0px 0px 10px 5px #f8f6f6;
+    }
+
+    .card {
+      .card-img-top {
+        cursor: pointer;
+      }
+      .card-body {
+        padding: 8px;
+        .card-title {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
 }
 
 .clsAdv {

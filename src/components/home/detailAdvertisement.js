@@ -25,7 +25,7 @@ export default function DetailAdvertisement (props) {
       <Slider {...settings}>
         {advertisement.images.map((img, idx) => {
           const src = ((img || '').indexOf('/images/') === 0 ? config.serverUrl : '') + img
-          return <div className='clsSlideItem'>
+          return <div key={idx} className='clsSlideItem'>
             <div><Image src={src} /></div>
           </div>
         })}
