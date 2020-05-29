@@ -29,6 +29,7 @@ export default function DetailAdvertisement (props) {
         })}
       </Slider>
       <p><strong className='clrBlue'>Giá cả:</strong> {advertisement.price} vnđ<br /> <strong className='clrBlue'>Thời gian hoàn thành:</strong> {advertisement.time}</p>
+      {advertisement.video && <iframe src={`https://www.youtube.com/embed/${advertisement.video}`} allowfullscreen='' />}
       <p>{advertisement.description}</p>
     </div>
   )
