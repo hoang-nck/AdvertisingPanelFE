@@ -25,7 +25,9 @@ export default function DetailAdvertisement (props) {
       <Slider {...settings}>
         {advertisement.images.map((img, idx) => {
           const src = ((img || '').indexOf('/images/') === 0 ? config.serverUrl : '') + img
-          return <div className='clsSlideItem'><Image src={src} /></div>
+          return <div className='clsSlideItem'>
+            <div><Image src={src} /></div>
+          </div>
         })}
       </Slider>
       <p><strong className='clrBlue'>Giá cả:</strong> {advertisement.price} vnđ<br /> <strong className='clrBlue'>Thời gian hoàn thành:</strong> {advertisement.time}</p>

@@ -9,21 +9,21 @@
     text-align: center;
   }
 
-  .clsSlideItem {
+  .clsSlideItem div {
     background-color: black;
-    height: 400px;
-    line-height: 400px;
-    vertical-align: middle;
+    height          : 400px;
+    display         : flex;
 
     img {
       max-height: 100%;
-      max-width: 100%;
-      margin: auto;
+      max-width : 100%;
+      margin    : auto;
     }
 
   }
+
   iframe {
-    width: 100%;
+    width     : 100%;
     min-height: 350px;
   }
 }
