@@ -1,5 +1,5 @@
 {
-  "name": "Advertising-Panel",
+  "name": "advertising-panel",
   "version": "1.0.0",
   "description": "Frontend of Advertising panel",
   "author": "HoangNck",
@@ -7,14 +7,18 @@
   "main": "index.js",
   "scripts": {
     "start-server": "babel-node app.js",
-    "nf-server": "nf start -e prod.env",
     "build-dev": "babel-node builddev.js",
-    "build-prod": "webpack -p --config webpack.config.prod.js",
-    "dev": "npm-run-all --parallel build-dev start-server",
-    "start-dev": "nf start dev -e .env",
+    "start-dev": "npm-run-all --parallel build-dev start-server",
+    "dev": "nf start start-dev -e .env",
+
     "start": "node production.js",
+
+    "build-prod": "webpack -p --config webpack.config.prod.js",
     "production": "nf start build-prod -e prod.env",
-    "runpm2": "pm2 start --name=fe-advertisement npm -- run nf-server"
+    "node-prod": "node production.js",
+    "prod": "nf start node-prod -e prod.env",
+
+    "runpm2": "pm2 start --name=fe-advertisement npm -- run prod"
   },
   "dependencies": {
     "apisauce": "^1.1.1",
