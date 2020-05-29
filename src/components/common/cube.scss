@@ -25,6 +25,7 @@
     margin         : auto;
     position       : relative;
     height         : 200px;
+    line-height    : 196px;
     width          : 200px;
     transform-style: preserve-3d;
   }
@@ -40,6 +41,7 @@
     color              : #fff;
     transition         : transform 0.2s ease-in;
     cursor             : pointer;
+    vertical-align     : middle;
   }
 
   .front {
@@ -91,6 +93,7 @@
         text-align      : center;
         width           : 100%;
         background-color: rgba(0, 0, 0, 0.753);
+        line-height     : 20px;
       }
 
       img {

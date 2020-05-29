@@ -11,10 +11,13 @@
 
   .clsSlideItem {
     background-color: black;
+    height: 400px;
+    line-height: 400px;
+    vertical-align: middle;
 
     img {
-      height: 400px;
-      width : auto;
+      max-height: 100%;
+      max-width: 100%;
       margin: auto;
     }
 
