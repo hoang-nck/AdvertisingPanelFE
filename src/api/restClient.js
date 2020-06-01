@@ -116,7 +116,13 @@ export default class RestClient {
         }
       }
     }
-    return data.getData()
+    const result = data.getData()
+
+    if (result.statusCode === 401) {
+      $('#logoutId').click()
+    }
+
+    return result
   }
 
 }

@@ -145,7 +145,7 @@ const Account = connect((state) => ({
 
   return logged ? (
     <div>
-      <span onClick={() => disPatch('logout')} className='clsBtn clrGreen'>
+      <span id='logoutId' onClick={() => disPatch('logout')} className='clsBtn clrGreen'>
         Logout <i className='fa fa-reply-all' aria-hidden='true' />
       </span>&nbsp;
       <span className='clsBtn clrGreen'>

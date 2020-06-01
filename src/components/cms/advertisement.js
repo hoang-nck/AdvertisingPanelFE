@@ -132,7 +132,7 @@ export default function Advertisement (props) {
         <Modal.Body>
           <div className='clsAddImg'>
             <Textbox type='text' value={imgValue} onChange={e => disPatch({type: 'onChange', name: 'imgValue', value: _.get(e, 'target.value', '')})} title='Url hình' />
-            <Button className='clrGreen' noLoading onClick={() => { disPatch('addImg') }} icon='fas fa-plus-square' />
+            <Button className='clrGreen' disable={!imgValue} noLoading onClick={() => { disPatch('addImg') }} icon='fas fa-plus-square' />
           </div>
           <div className='clsSearch'>
             <Textbox type='text' name='search' value={search} onChange={e => disPatch({type: 'onChange', name: 'search', value: _.get(e, 'target.value', '')})} title='Tên hình' />

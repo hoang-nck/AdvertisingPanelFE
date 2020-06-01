@@ -41,7 +41,6 @@ export default function Home (props) {
           })}
         </CardColumns>
       </div>
-
       <Modal show={!_.isEmpty(advertisement)} onHide={() => disPatch({type: 'onHide', name: 'advertisement'})} size='lg' >
         <Modal.Header closeButton >
           <Modal.Title className='w-100'>Chi tiết bảng hiệu</Modal.Title>
