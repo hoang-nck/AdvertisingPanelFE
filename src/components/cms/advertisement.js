@@ -122,7 +122,7 @@ export default function Advertisement (props) {
           <Button name='delete' className='clrBlue' onClick={() => disPatch('delete')} loading={button.delete} icon='fas fa-trash-alt' value='Xoá' />
         </Modal.Footer>
       </Modal>
-      <Modal show={showimgModalIdx > -1} onHide={() => disPatch({type: 'onHide', name: 'showimgModalIdx'})} size='lg' >
+      <Modal show={showimgModalIdx > -1} onHide={() => disPatch({type: 'onHide', name: 'showimgModalIdx'})} size='lg' className='clsModalAdv' >
         <Modal.Header closeButton >
           <Modal.Title className='w-100'>
             Chọn hình: <span className='clsImgChoosed'>{choosedImages.map((img, idx) => <Image title={img.name} src={(img.indexOf('/images/') === 0 ? config.serverUrl : '') + img} />)}</span>
@@ -140,8 +140,8 @@ export default function Advertisement (props) {
           </div> <br />
           <CardColumns>
             {images.filter(item => (item.name || '').toLowerCase().search(search.toLowerCase()) >= 0).map((item, idx) => (
-              <Card key={idx} className={choosedImages.findIndex(el => el === item.path) >= 0 ? 'choosed' : ''}>
-                <Card.Img variant='top' src={config.serverUrl + item.path} onClick={() => disPatch({type: 'onClickImg', index: idx})} />
+              <Card key={idx} className={choosedImages.findIndex(el => el === item.path) >= 0 ? 'choosed' : ''} onClick={() => disPatch({type: 'onClickImg', index: idx})}>
+                <Card.Img variant='top' src={config.serverUrl + item.path} />
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
                 </Card.Body>

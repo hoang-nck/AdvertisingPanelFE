@@ -29,6 +29,19 @@
           margin-top: 0;
         }
       }
+
+      td .clsImgDiv {
+        min-width: 300px;
+
+        .clsImgChoosed {
+          display: inline-block;
+
+          img {
+            height: 36px;
+            width : auto;
+          }
+        }
+      }
     }
   }
 
@@ -75,6 +88,31 @@
   }
 }
 
+.clsModalAdv {
+
+  .clsAddImg {
+    span {
+      max-width: 280px;
+    }
+  }
+
+  .clsImgChoosed {
+    img {
+      height: 50px;
+      width : auto;
+    }
+  }
+
+  .card.choosed {
+    cursor          : pointer;
+    background-color: black;
+
+    .card-title {
+      color: white;
+    }
+  }
+}
+
 .clsSearch {
   margin-top: 10px;
 
@@ -85,34 +123,4 @@
   .clsBtn {
     line-height: 28px;
   }
-}
-
-.clsAddImg {
-  span {
-    max-width: 280px;
-  }
-}
-
-.clsImgChoosed {
-  img {
-    height: 50px;
-    width : auto;
-  }
-}
-
-td .clsImgDiv {
-  min-width: 300px;
-
-  .clsImgChoosed {
-    display: inline-block;
-
-    img {
-      height: 36px;
-      width : auto;
-    }
-  }
-}
-
-.card.choosed {
-  background-color: #066ef6;
 }
