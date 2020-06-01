@@ -22,7 +22,7 @@ const settings = {
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
-  // autoplay: true,
+  autoplay: true,
   speed: 1000,
   autoplaySpeed: 3000,
   cssEase: 'linear'
@@ -44,7 +44,7 @@ export default function Home (props) {
       <h1>Chào mừng bạn đến với Thiết kế bảng hiệu</h1>
       <div className='clsMain'>
         <div className='clsSlide'>
-          <div>Bảng hiệu chuộng nhất</div>
+          <div className='clsItemtitle'>Bảng hiệu chuộng nhất</div>
           <Slider {...settings}>
             {advertisements.sort().map((item, idx) => {
               return <div key={idx} className='clsSlideItem'>
@@ -57,19 +57,22 @@ export default function Home (props) {
             })}
           </Slider>
         </div>
-        <CardColumns>
-          {advertisements.map((item, idx) => {
-            return (
-              <Card key={idx} >
-                <Card.Img variant='top' src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
-                <Card.Body>
-                  <Card.Title>{item.title}</Card.Title>
-                  <div className='clsPrice'>{item.price} vnđ</div>
-                </Card.Body>
-              </Card>
-            )
-          })}
-        </CardColumns>
+        <div className='clsCard'>
+          <div className='clsItemtitle'>Bảng hiệu gần đây</div>
+          <CardColumns>
+            {advertisements.map((item, idx) => {
+              return (
+                <Card key={idx} >
+                  <Card.Img variant='top' src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
+                  <Card.Body>
+                    <Card.Title>{item.title}</Card.Title>
+                    <div className='clsPrice'>{item.price} vnđ</div>
+                  </Card.Body>
+                </Card>
+              )
+            })}
+          </CardColumns>
+        </div>
       </div>
       <Modal show={!_.isEmpty(advertisement)} onHide={() => disPatch({ type: 'onHide', name: 'advertisement' })} size='lg' >
         <Modal.Header closeButton >
