@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { Modal, CardColumns, Card } from 'react-bootstrap'
+import Slider from 'react-slick'
+import { Modal, CardColumns, Card, Image } from 'react-bootstrap'
 import _ from 'lodash'
 
 import Cube from '../common/cube'
@@ -16,6 +17,23 @@ const initialState = {
   advertisement: {}
 }
 
+const settings = {
+  dots: true,
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  // autoplay: true,
+  speed: 1000,
+  autoplaySpeed: 3000,
+  cssEase: 'linear'
+}
+
+const getSrc = item => {
+  const img = _.get(item, 'images[0]', '')
+  const src = (img.indexOf('/images/') === 0 ? config.serverUrl : '') + img
+  return src
+}
+
 export default function Home (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
   const { advertisements, advertisement } = state
@@ -25,13 +43,25 @@ export default function Home (props) {
       <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => disPatch({ type: 'clickCube', item })} />
       <h1>Chào mừng bạn đến với Thiết kế bảng hiệu</h1>
       <div className='clsMain'>
+        <div className='clsSlide'>
+          <div>Bảng hiệu chuộng nhất</div>
+          <Slider {...settings}>
+            {advertisements.sort().map((item, idx) => {
+              return <div key={idx} className='clsSlideItem'>
+                <div>
+                  <Image src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
+                  <strong className='title'>{item.title}</strong>
+                  <strong className='price'>{item.price} vnđ</strong>
+                </div>
+              </div>
+            })}
+          </Slider>
+        </div>
         <CardColumns>
           {advertisements.map((item, idx) => {
-            const img = _.get(item, 'images[0]', '')
-            const src = (img.indexOf('/images/') === 0 ? config.serverUrl : '') + img
             return (
               <Card key={idx} >
-                <Card.Img variant='top' src={src} onClick={() => disPatch({ type: 'clickCube', item })} />
+                <Card.Img variant='top' src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
                 <Card.Body>
                   <Card.Title>{item.title}</Card.Title>
                   <div className='clsPrice'>{item.price} vnđ</div>
@@ -41,7 +71,7 @@ export default function Home (props) {
           })}
         </CardColumns>
       </div>
-      <Modal show={!_.isEmpty(advertisement)} onHide={() => disPatch({type: 'onHide', name: 'advertisement'})} size='lg' >
+      <Modal show={!_.isEmpty(advertisement)} onHide={() => disPatch({ type: 'onHide', name: 'advertisement' })} size='lg' >
         <Modal.Header closeButton >
           <Modal.Title className='w-100'>Chi tiết bảng hiệu</Modal.Title>
         </Modal.Header>

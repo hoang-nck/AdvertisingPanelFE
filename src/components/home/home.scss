@@ -4,6 +4,44 @@
   }
 
   .clsMain {
+    .clsSlide {
+      .clsSlideItem>div {
+        position        : relative;
+        background-color: black;
+        height          : 400px;
+        display         : flex;
+
+        img {
+          max-height: 100%;
+          max-width : 100%;
+          margin    : auto;
+        }
+
+        .title {
+          margin  : 5px;
+          color   : white;
+          position: absolute;
+          bottom  : 0;
+          left    : 0;
+          background-color: #101214d8;
+          border-radius   : 5px;
+        }
+
+        .price {
+          color           : white;
+          position        : absolute;
+          top             : 0;
+          left            : 0;
+          padding         : 5px;
+          background-color: #c0dcf55e;
+          margin          : 5px;
+          border          : 1px solid #4df5c2;
+          border-radius   : 5px;
+          box-shadow      : 0px 0px 10px 5px #f8f6f6;
+        }
+      }
+    }
+
     .clsPrice {
       font-weight     : bold;
       padding         : 5px;
@@ -21,8 +59,10 @@
       .card-img-top {
         cursor: pointer;
       }
+
       .card-body {
         padding: 8px;
+
         .card-title {
           margin-bottom: 0;
         }
@@ -46,7 +86,6 @@
       max-width : 100%;
       margin    : auto;
     }
-
   }
 
   iframe {
