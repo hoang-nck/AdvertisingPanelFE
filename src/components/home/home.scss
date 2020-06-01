@@ -19,6 +19,7 @@
       font-weight: bolder;
       font-size  : 18px;
     }
+
     .clsSlide {
       .clsSlideItem>div {
         position        : relative;
@@ -61,7 +62,8 @@
       .clsPrice {
         font-weight     : bold;
         padding         : 5px;
-        background-color: #c0dcf55e;
+        background-color: black;
+        color           : white;
         margin          : 5px;
         position        : absolute;
         left            : 0;
