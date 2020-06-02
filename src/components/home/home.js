@@ -67,7 +67,7 @@ export default function Home (props) {
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>
                   </Card.Body>
-                  <div className='clsPrice'>{item.price} vnđ</div>
+                  <span className='clsPrice'>{item.price} vnđ</span>
                 </Card>
               )
             })}
