@@ -66,7 +66,7 @@ export default function Home (props) {
                   <Card.Img variant='top' src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>
-                    <div className='clsPrice'>{item.price} vnđ</div>
+                    {/* <div className='clsPrice'>{item.price} vnđ</div> */}
                   </Card.Body>
                 </Card>
               )
