@@ -82,7 +82,8 @@ div.clsAlert {
     font-weight    : bolder;
   }
 
-  a.clsZalo, a.clsFace {
+  a.clsZalo,
+  a.clsFace {
     background: -moz-radial-gradient(center, ellipse cover, rgba(30, 87, 153, 0) 0%, rgba(30, 87, 153, 0.8) 7%, rgba(30, 87, 153, 0.87) 20%, rgba(35, 110, 182, 1) 47%, rgba(41, 137, 216, 1) 78%, rgba(41, 137, 216, 1) 80%, rgba(41, 137, 216, 1) 81%, rgba(41, 137, 216, 0.8) 92%, rgba(41, 137, 216, 0) 100%);
     background: -webkit-radial-gradient(center, ellipse cover, rgba(30, 87, 153, 0) 0%, rgba(30, 87, 153, 0.8) 7%, rgba(30, 87, 153, 0.87) 20%, rgba(35, 110, 182, 1) 47%, rgba(41, 137, 216, 1) 78%, rgba(41, 137, 216, 1) 80%, rgba(41, 137, 216, 1) 81%, rgba(41, 137, 216, 0.8) 92%, rgba(41, 137, 216, 0) 100%);
     background: radial-gradient(ellipse at center, rgba(30, 87, 153, 0) 0%, rgba(30, 87, 153, 0.8) 7%, rgba(30, 87, 153, 0.87) 20%, rgba(35, 110, 182, 1) 47%, rgba(41, 137, 216, 1) 78%, rgba(41, 137, 216, 1) 80%, rgba(41, 137, 216, 1) 81%, rgba(41, 137, 216, 0.8) 92%, rgba(41, 137, 216, 0) 100%);
@@ -96,5 +97,17 @@ div.clsAlert {
     background: radial-gradient(ellipse at center, rgba(169, 228, 247, 1) 0%, rgba(30, 185, 233, 1) 90%, rgba(20, 182, 232, 0) 97%, rgba(15, 180, 231, 0) 100%);
     filter    : progid:DXImageTransform.Microsoft.gradient(startColorstr='#a9e4f7', endColorstr='#000fb4e7', GradientType=1);
 
+  }
+}
+
+.scollToHead {
+  position: fixed;
+  bottom: 2px;
+  left: 16px;
+  font-size: 35px;
+  color: #066ef6;
+
+  i {
+    cursor: pointer;
   }
 }

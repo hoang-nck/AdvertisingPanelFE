@@ -27,6 +27,7 @@ const Root = () => (
           <a className='clsZalo' href='https://zalo.me/0901345535' target='_blank'>Zalo</a> <br />
           <a className='clsPhone' href='tel:0901345535'>0901 345 535 <i class='fa fa-phone' /></a>
         </div>
+        <div className='scollToHead' onClick={() => $('html, body').stop().animate({scrollTop: 0}, 500, 'swing')}><i class='fas fa-arrow-circle-up' /></div>
       </div>
     </BrowserRouter>
   </Provider>
