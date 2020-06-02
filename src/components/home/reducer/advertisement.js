@@ -8,10 +8,10 @@ const advertisement = async (state, action, props) => {
       const rs = await advertisementCtr.get({sort: 'sequence'})()
       const data = { }
       if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Làm mới thành công!' })
+        props.commonAc.addAlert({ type: config.alerts.success, title: 'Trang chủ ', body: 'Tải thành công!' })
         data.advertisements = rs.data
       } else {
-        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Bảng hiệu', body: rs.message })
+        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Trang chủ', body: rs.message })
       }
 
       return {...state, ...data, ...getButton(action.type)}

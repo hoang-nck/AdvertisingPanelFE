@@ -26,15 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use('/js', express.static(path.join(__dirname, './public/js')))
-
 app.use('/images', express.static(path.join(__dirname, './public/images')))
-
-if (process.env.NODE_ENV === 'production') {
-  app.use('/public/images', express.static(path.join(__dirname, './public/production/public/images')))
-  app.use('/public/fonts', express.static(path.join(__dirname, './public/production/public/fonts')))
-  app.use('/bundle.js', express.static(path.join(__dirname, './public/production/bundle.js')))
-}
-
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './src/index.html'))
 })
