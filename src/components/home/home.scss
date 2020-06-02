@@ -60,31 +60,31 @@
 
     .clsCard {
       .card {
-        display: inline-block !important;
         .card-img-top {
           cursor: pointer;
         }
 
         .card-body {
-          padding: 8px;
+          padding : 8px;
+          position: relative;
 
           .card-title {
             margin-bottom: 0;
           }
-        }
 
-        .clsPrice {
-          font-weight     : bold;
-          padding         : 5px;
-          background-color: black;
-          color           : white;
-          margin          : 5px;
-          position        : absolute;
-          left            : 0;
-          top             : 0;
-          border          : 1px solid #4df5c2;
-          border-radius   : 5px;
-          box-shadow      : 0px 0px 10px 5px #f8f6f6;
+          .clsPrice {
+            font-weight     : bold;
+            padding         : 5px;
+            background-color: black;
+            color           : white;
+            margin          : 5px;
+            position        : absolute;
+            right           : 0;
+            top             : -48px;
+            border          : 1px solid #4df5c2;
+            border-radius   : 5px;
+            box-shadow      : 0px 0px 10px 5px #f8f6f6;
+          }
         }
       }
     }

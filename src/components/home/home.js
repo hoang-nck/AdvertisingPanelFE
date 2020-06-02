@@ -67,8 +67,8 @@ export default function Home (props) {
                   <Card.Img variant='top' src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>
+                    <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} />
                   </Card.Body>
-                  <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} />
                 </Card>
               )
             })}
