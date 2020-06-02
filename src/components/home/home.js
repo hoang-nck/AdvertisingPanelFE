@@ -52,7 +52,7 @@ export default function Home (props) {
                 <div>
                   <Image src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
                   <strong className='title'>{item.title}</strong>
-                  <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} />
+                  <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='price'>{value} <span className='clrRed'>vnđ</span></span>} />
                 </div>
               </div>
             })}
