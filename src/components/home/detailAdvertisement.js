@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image } from 'react-bootstrap'
 import Slider from 'react-slick'
+import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 
 import config from '../../utils/config'
@@ -32,7 +33,11 @@ export default function DetailAdvertisement (props) {
           </div>
         })}
       </Slider>
-      <p><strong className='clrBlue'>Giá cả:</strong> {advertisement.price} vnđ<br /> <strong className='clrBlue'>Thời gian hoàn thành:</strong> {advertisement.time}</p>
+      <p>
+        <strong className='clrBlue'>Giá cả: </strong>
+        <NumberFormat value={advertisement.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} /><br />
+        <strong className='clrBlue'>Thời gian hoàn thành:</strong> {advertisement.time}
+      </p>
       {advertisement.video && <iframe className='video' src={`https://www.youtube.com/embed/${advertisement.video}`} allowfullscreen='' />}
       {advertisement.description && <iframe onLoad={el => resizeIframe(el)} width='100%' frameborder='0' scrolling='no' srcdoc={advertisement.description} />}
     </div>

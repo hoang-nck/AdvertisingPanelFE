@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Slider from 'react-slick'
 import { Modal, CardColumns, Card, Image } from 'react-bootstrap'
+import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 
 import Cube from '../common/cube'
@@ -51,7 +52,7 @@ export default function Home (props) {
                 <div>
                   <Image src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
                   <strong className='title'>{item.title}</strong>
-                  <strong className='price'>{item.price} vnđ</strong>
+                  <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} />
                 </div>
               </div>
             })}
@@ -67,7 +68,7 @@ export default function Home (props) {
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>
                   </Card.Body>
-                  <span className='clsPrice'>{item.price} vnđ</span>
+                  <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} />
                 </Card>
               )
             })}
