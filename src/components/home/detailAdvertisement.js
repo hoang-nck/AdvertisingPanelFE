@@ -18,7 +18,9 @@ const settings = {
 
 export default function DetailAdvertisement (props) {
   const { advertisement } = props
-
+  const resizeIframe = el => {
+    el.target.style.height = el.target.contentWindow.document.documentElement.scrollHeight + 'px'
+  }
   return (
     <div className='clsAdv'>
       <h4><strong className='clrBlue'>{advertisement.title}</strong></h4>
@@ -31,8 +33,8 @@ export default function DetailAdvertisement (props) {
         })}
       </Slider>
       <p><strong className='clrBlue'>Giá cả:</strong> {advertisement.price} vnđ<br /> <strong className='clrBlue'>Thời gian hoàn thành:</strong> {advertisement.time}</p>
-      {advertisement.video && <iframe src={`https://www.youtube.com/embed/${advertisement.video}`} allowfullscreen='' />}
-      {advertisement.description && <iframe srcdoc={advertisement.description} />}
+      {advertisement.video && <iframe className='video' src={`https://www.youtube.com/embed/${advertisement.video}`} allowfullscreen='' />}
+      {advertisement.description && <iframe onLoad={el => resizeIframe(el)} width='100%' frameborder='0' scrolling='no' srcdoc={advertisement.description} />}
     </div>
   )
 }
