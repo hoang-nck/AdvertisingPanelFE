@@ -28,17 +28,24 @@
         .clsInput input {
           margin-top: 0;
         }
-      }
 
-      td .clsImgDiv {
-        min-width: 300px;
+        >div {
+          white-space  : nowrap;
+          overflow     : hidden;
+          text-overflow: ellipsis;
+          max-width    : 200px;
+        }
 
-        .clsImgChoosed {
-          display: inline-block;
+        .clsImgDiv {
+          min-width: 300px;
 
-          img {
-            height: 36px;
-            width : auto;
+          .clsImgChoosed {
+            display: inline-block;
+
+            img {
+              height: 36px;
+              width : auto;
+            }
           }
         }
       }

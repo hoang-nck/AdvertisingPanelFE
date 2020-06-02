@@ -23,9 +23,9 @@ const Root = () => (
         <Route component={Body} />
         <Alerts />
         <div className='clsHotline'>
-          <a className='clsPhone' href='tel:0901345535'>0901 345 535 <i class='fa fa-phone' /></a> <br />
-          <a className='clsPhone' href='https://www.facebook.com/dinhanhdesigner' target='_blank'> <i class='fab fa-facebook' /></a> <br />
-          <a className='clsPhone' href='https://zalo.me/0901345535' target='_blank'>Zalo</a>
+          <a href='https://www.facebook.com/dinhanhdesigner' target='_blank'>&nbsp;&nbsp;<i class='fab fa-facebook' />&nbsp;&nbsp;</a> <br />
+          <a href='https://zalo.me/0901345535' target='_blank'>Zalo</a> <br />
+          <a href='tel:0901345535'>0901 345 535 <i class='fa fa-phone' /></a>
         </div>
       </div>
     </BrowserRouter>
