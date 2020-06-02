@@ -60,7 +60,7 @@
 
     .clsCard {
       .card {
-        display: inline-block;
+        display: inline-block !important;
         .card-img-top {
           cursor: pointer;
         }

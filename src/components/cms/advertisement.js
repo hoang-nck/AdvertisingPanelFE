@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Table, Modal, CardColumns, Card, Image } from 'react-bootstrap'
+import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 
 import common from '../../utils/common'
@@ -79,7 +80,7 @@ export default function Advertisement (props) {
                   ? <React.Fragment>
                     <td><div>{item.title}</div></td>
                     <td><div>{item.sequence}</div></td>
-                    <td><div>{item.price}</div></td>
+                    <td><NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <div className='clsPrice'>{value} <span className='clrRed'>vnđ</span></div>} /></td>
                     <td><div>{item.time}</div></td>
                     <td><div>{item.description}</div></td>
                     <td className='col-auto'>
