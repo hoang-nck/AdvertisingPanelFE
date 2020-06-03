@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Table, Modal, CardColumns, Card, Image } from 'react-bootstrap'
 import NumberFormat from 'react-number-format'
+import Select from 'react-select'
 import _ from 'lodash'
 
 import common from '../../utils/common'
@@ -30,9 +31,11 @@ const getIconSort = value => {
   return 'fas fa-sort-amount-up'
 }
 
+const getSelectValue = item => _.isEmpty(item.style) ? undefined : {label: _.get(item, 'style.name', ''), value: _.get(item, 'style._id', '')}
+
 export default function Advertisement (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
-  const { advertisement, editIdx, showIdx, showimgModalIdx, advertisements, button, sort, images, search, imgChoosed, imgValue } = state
+  const { advertisement, editIdx, showIdx, showimgModalIdx, advertisements, button, sort, images, search, imgChoosed, imgValue, styles } = state
   const onChangeNew = e => disPatch({type: 'onChangeNew', e: _.pick(e.target, ['name', 'value'])})
   const onChangeEdit = e => disPatch({type: 'onChangeEdit', e: _.pick(e.target, ['name', 'value'])})
 
@@ -48,7 +51,8 @@ export default function Advertisement (props) {
           <tr>
             <th>#</th>
             <th><strong>Tiêu đề</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'title'}) }} icon={getIconSort(sort.title)} /></th>
-            <th><strong>Ưu tiên</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'sequence'}) }} icon={getIconSort(sort.title)} /></th>
+            <th><strong>Loại</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'style'}) }} icon={getIconSort(sort.style)} /></th>
+            <th><strong>Ưu tiên</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'sequence'}) }} icon={getIconSort(sort.sequence)} /></th>
             <th><strong>Giá</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
             <th><strong>Thời gian</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'time'}) }} icon={getIconSort(sort.time)} /></th>
             <th><strong>Miêu tả</strong></th>
@@ -61,6 +65,7 @@ export default function Advertisement (props) {
           <tr key={0}>
             <td>0</td>
             <td><Textbox type='text' name='title' value={advertisement.title} onChange={onChangeNew} title='' /></td>
+            <td><Select className='clsSelect' placeholder='Chọn loại bảng hiệu' value={getSelectValue(advertisement)} onChange={e => disPatch({type: 'onSelect', name: 'advertisement', e})} options={styles.map(item => ({ value: item._id, label: item.name }))} /></td>
             <td><Textbox type='number' name='sequence' value={advertisement.sequence} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='number' name='price' value={advertisement.price} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='text' name='time' value={advertisement.time} onChange={onChangeNew} title='' /></td>
@@ -81,6 +86,7 @@ export default function Advertisement (props) {
                 editIdx !== idx
                   ? <React.Fragment>
                     <td><div>{item.title}</div></td>
+                    <td><div>{_.get(item, 'style.name', '')}</div></td>
                     <td><div>{item.sequence}</div></td>
                     <td><NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <div className='clsPrice'>{value} <span className='clrRed'>vnđ</span></div>} /></td>
                     <td><div>{item.time}</div></td>
@@ -90,10 +96,11 @@ export default function Advertisement (props) {
                         <span className='clsImgChoosed'>{item.images.map((img, idx) => <Image key={idx} src={(img.indexOf('/images/') === 0 ? config.serverUrl : '') + img} />)}</span>
                       </div>
                     </td>
-                    <td>{item.video}</td>
+                    <td><div>{item.video}</div></td>
                   </React.Fragment>
                   : <React.Fragment>
                     <td><Textbox type='text' name='title' value={item.title} onChange={onChangeEdit} title='' /></td>
+                    <td><Select className='clsSelect' placeholder='Chọn loại bảng hiệu' value={getSelectValue(item)} onChange={e => disPatch({type: 'onSelect', name: 'advertisements', e})} options={styles.map(item => ({ value: item._id, label: item.name }))} /></td>
                     <td><Textbox type='number' name='sequence' value={item.sequence} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='number' name='price' value={item.price} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='text' name='time' value={item.time} onChange={onChangeEdit} title='' /></td>

@@ -26,7 +26,7 @@ export default function Cms (props) {
     const pro = async () => new Promise(async resolve => {
       const data = await Promise.all([
         new Promise(async resolve => resolve(await styleCtr.get({sort: 'name'})())),
-        new Promise(async resolve => resolve(await advertisementCtr.get({sort: 'title'})())),
+        new Promise(async resolve => resolve(await advertisementCtr.get({populate: 'style', sort: 'title'})())),
         new Promise(async resolve => resolve(await fileCtr.get({sort: 'name'})())),
         new Promise(async resolve => resolve(await newsCtr.get({ sort: 'title' })()))
       ])

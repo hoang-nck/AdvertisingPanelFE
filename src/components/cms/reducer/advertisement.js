@@ -22,7 +22,7 @@ const advertisement = async (state, action, props) => {
       return { ...state, ...action.data, ...getButton('getAdvertisements') }
     },
     getAdvertisements: async () => {
-      const rs = await advertisementCtr.get({sort: 'title'})()
+      const rs = await advertisementCtr.get({populate: 'style', sort: 'title'})()
       const data = { }
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Làm mới thành công!' })
@@ -59,6 +59,21 @@ const advertisement = async (state, action, props) => {
       return {
         ...state,
         advertisement: {...state.advertisement, [_.get(action, 'e.name', 'null')]: _.get(action, 'e.value', 'null')}
+      }
+    },
+    onSelect: () => {
+      const data = {}
+      const style = { _id: action.e.value, name: action.e.label }
+      if (action.name === 'advertisement') {
+        data.advertisement = {...state.advertisement, style}
+      } else {
+        const adv = state.advertisements[state.editIdx]
+        adv.style = style
+      }
+
+      return {
+        ...state,
+        ...data
       }
     },
     onChangeEdit: () => {

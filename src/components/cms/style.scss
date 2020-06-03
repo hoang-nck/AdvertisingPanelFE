@@ -29,11 +29,22 @@
           margin-top: 0;
         }
 
+        .clsSelect {
+          width   : 300px;
+          overflow: visible;
+
+          .css-26l3qy-menu {
+            margin-top   : 0;
+            margin-bottom: 0;
+          }
+        }
+
         >div {
           white-space  : nowrap;
           overflow     : hidden;
           text-overflow: ellipsis;
           max-width    : 200px;
+          min-width    : 120px;
         }
 
         .clsImgDiv {
