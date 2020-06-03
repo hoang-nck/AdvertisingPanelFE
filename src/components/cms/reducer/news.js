@@ -1,14 +1,14 @@
 import config from '../../../utils/config'
-import * as advertisementCtr from '../../../api/controller/advertisement'
+import * as newsCtr from '../../../api/controller/news'
 import * as fileCtr from '../../../api/controller/file'
 
-const advertisement = async (state, action, props) => {
+const news = async (state, action, props) => {
   const getButton = name => ({ button: { ...state.button, [name]: _.get(state.button, name, 1) + 2 } })
   const cases = {
-    clearImages: () => ({...state, images: []}),
+    clearImages: () => ({ ...state, images: [] }),
     getImages: async () => {
-      const rs = await fileCtr.get({sort: 'name'})()
-      const data = { }
+      const rs = await fileCtr.get({ sort: 'name' })()
+      const data = {}
       if (rs.success) {
         props.commonAc.addAlert({ type: config.alerts.success, title: 'Hình ảnh', body: 'Tải danh sách hình thành công!' })
         data.images = rs.data
@@ -16,37 +16,37 @@ const advertisement = async (state, action, props) => {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Hình ảnh', body: rs.message })
       }
 
-      return {...state, ...data, ...getButton(action.type)}
+      return { ...state, ...data, ...getButton(action.type) }
     },
-    setProps: () => {
-      return { ...state, ...action.data, ...getButton('getAdvertisements') }
+    setNewsList: () => {
+      return { ...state, newsList: action.newsList, ...getButton('getNewsList') }
     },
-    getAdvertisements: async () => {
-      const rs = await advertisementCtr.get({sort: 'title'})()
-      const data = { }
+    getNewsList: async () => {
+      const rs = await newsCtr.get({ sort: 'title' })()
+      const data = {}
       if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Làm mới thành công!' })
-        data.advertisements = rs.data
+        props.commonAc.addAlert({ type: config.alerts.success, title: 'Tin tức', body: 'Làm mới thành công!' })
+        data.newsList = rs.data
       } else {
-        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Bảng hiệu', body: rs.message })
+        props.commonAc.addAlert({ type: config.alerts.danger, title: 'Tin tức', body: rs.message })
       }
 
-      return {...state, ...data, ...getButton(action.type)}
+      return { ...state, ...data, ...getButton(action.type) }
     },
     sort: () => {
-      let items = _.sortBy(state.advertisements, [action.field])
+      let items = _.sortBy(state.newsList, [action.field])
       state.sort[action.field] && (items = items.reverse())
 
       return {
         ...state,
-        advertisements: items,
+        newsList: items,
         sort: { [action.field]: !state.sort[action.field] }
       }
     },
     clear: () => {
       return {
         ...state,
-        advertisements: []
+        newsList: []
       }
     },
     onChange: () => {
@@ -58,12 +58,12 @@ const advertisement = async (state, action, props) => {
     onChangeNew: () => {
       return {
         ...state,
-        advertisement: {...state.advertisement, [_.get(action, 'e.name', 'null')]: _.get(action, 'e.value', 'null')}
+        news: { ...state.news, [_.get(action, 'e.name', 'null')]: _.get(action, 'e.value', 'null') }
       }
     },
     onChangeEdit: () => {
-      const { editIdx, advertisements } = state
-      advertisements[editIdx] = {...advertisements[editIdx], [_.get(action, 'e.name', 'null')]: _.get(action, 'e.value', 'null')}
+      const { editIdx, newsList } = state
+      newsList[editIdx] = { ...newsList[editIdx], [_.get(action, 'e.name', 'null')]: _.get(action, 'e.value', 'null') }
       return {
         ...state
       }
@@ -80,35 +80,35 @@ const advertisement = async (state, action, props) => {
     },
     save: async () => {
       let data = {}
-      const rs = await advertisementCtr.post({ ...state.advertisement, images: state.imgChoosed.map(el => el) })()
+      const rs = await newsCtr.post({ ...state.news, image: state.imgChoosed })()
       if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Tạo mới thành công!' })
+        props.commonAc.addAlert({ type: config.alerts.success, title: 'Tin tức', body: 'Tạo mới thành công!' })
         data = {
           ...data,
-          advertisement: {},
-          advertisements: [rs.data, ...state.advertisements]
+          news: {},
+          newsList: [rs.data, ...state.newsList]
         }
       } else {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Error!', body: rs.message })
       }
 
-      return {...state, ...data, ...getButton(action.type)}
+      return { ...state, ...data, ...getButton(action.type) }
     },
     update: async () => {
       action.e.preventDefault()
       action.e.stopPropagation()
 
       const data = {}
-      const item = state.advertisements[state.editIdx]
-      const rs = await advertisementCtr.put(item._id, item)()
+      const item = state.newsList[state.editIdx]
+      const rs = await newsCtr.put(item._id, item)()
       if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Chỉnh sửa thành công!' })
+        props.commonAc.addAlert({ type: config.alerts.success, title: 'Tin tức', body: 'Chỉnh sửa thành công!' })
         data.editIdx = -1
       } else {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Error!', body: rs.message })
       }
 
-      return {...state, ...data, ...getButton(action.type)}
+      return { ...state, ...data, ...getButton(action.type) }
     },
     showConfirm: () => {
       action.e.preventDefault()
@@ -135,48 +135,46 @@ const advertisement = async (state, action, props) => {
     },
     delete: async () => {
       const data = {}
-      const rs = await advertisementCtr.destroy(state.advertisements[state.showIdx]._id)()
+      const rs = await newsCtr.destroy(state.newsList[state.showIdx]._id)()
 
       if (rs.success) {
-        props.commonAc.addAlert({ type: config.alerts.success, title: 'Bảng hiệu', body: 'Xoá thành công!' })
-        state.advertisements.splice(state.showIdx, 1)
+        props.commonAc.addAlert({ type: config.alerts.success, title: 'Tin tức', body: 'Xoá thành công!' })
+        state.newsList.splice(state.showIdx, 1)
         data.showIdx = -1
       } else {
         props.commonAc.addAlert({ type: config.alerts.danger, title: 'Error!', body: rs.message })
       }
 
-      return {...state, ...data, ...getButton(action.type)}
+      return { ...state, ...data, ...getButton(action.type) }
     },
     onClickImg: () => {
       const img = state.images[action.index]
 
       if (state.showimgModalIdx === 0) {
-        const idx = state.imgChoosed.findIndex(el => el === img.path)
-        idx >= 0 ? state.imgChoosed.splice(idx, 1) : state.imgChoosed.push(img.path)
+        state.imgChoosed = state.imgChoosed === img.path ? '' : img.path
       } else {
-        const adv = state.advertisements[state.showimgModalIdx - 1]
-        const idx = (adv.images || []).findIndex(el => el === img.path)
-        idx >= 0 ? adv.images.splice(idx, 1) : adv.images = [...adv.images || [], img.path]
+        const adv = state.newsList[state.showimgModalIdx - 1]
+        adv.image = adv.image === img.path ? '' : img.path
       }
 
       return { ...state }
     },
     clearChoosedImg: () => {
       if (state.showimgModalIdx === 0) {
-        state.imgChoosed = []
+        state.imgChoosed = ''
       } else {
-        const adv = state.advertisements[state.showimgModalIdx - 1]
-        adv.images = []
+        const adv = state.newsList[state.showimgModalIdx - 1]
+        adv.image = ''
       }
 
       return { ...state }
     },
     addImg: () => {
       if (state.showimgModalIdx === 0) {
-        state.imgChoosed.push(state.imgValue)
+        state.imgChoosed = state.imgValue
       } else {
-        const adv = state.advertisements[state.showimgModalIdx - 1]
-        adv.images = [...adv.images || [], state.imgValue]
+        const adv = state.newsList[state.showimgModalIdx - 1]
+        adv.image = state.imgValue
       }
 
       return { ...state, imgValue: '' }
@@ -185,5 +183,4 @@ const advertisement = async (state, action, props) => {
   return cases[action.type]()
 }
 
-export default advertisement
-
+export default news

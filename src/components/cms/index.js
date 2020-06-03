@@ -1,21 +1,62 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tabs, Tab } from 'react-bootstrap'
+
+import * as advertisementCtr from '../../api/controller/advertisement'
+import * as fileCtr from '../../api/controller/file'
+import * as styleCtr from '../../api/controller/style'
+import * as newsCtr from '../../api/controller/news'
 
 import Advertisement from './advertisement'
 import Image from './image'
+import AdvertisementStyle from './advertisementStyle'
+import News from './news'
+import config from '../../utils/config'
 
 import './style.scss'
 
 export default function Cms (props) {
+  const [data, setData] = useState({
+    advertisements: [],
+    styles: [],
+    images: [],
+    newsList: []
+  })
+
+  useEffect(() => {
+    const pro = async () => new Promise(async resolve => {
+      const data = await Promise.all([
+        new Promise(async resolve => resolve(await styleCtr.get({sort: 'name'})())),
+        new Promise(async resolve => resolve(await advertisementCtr.get({sort: 'title'})())),
+        new Promise(async resolve => resolve(await fileCtr.get({sort: 'name'})())),
+        new Promise(async resolve => resolve(await newsCtr.get({ sort: 'title' })()))
+      ])
+      props.commonAc.addAlert({ type: config.alerts.success, title: 'Dữ liệu', body: 'Tải tất cả các dữ liệu thành công!' })
+      const [style, adv, file, news] = data
+      setData({
+        advertisements: adv.success ? adv.data : [],
+        styles: style.success ? style.data : [],
+        images: file.success ? file.data : [],
+        newsList: news.success ? news.data : []
+      })
+    })
+    pro()
+  }, [])
+
   return (
     <div className='clsCms'>
       {/* <center><h1>Chào Mừng Bạn Đến Với Quản Lý Nội Dung Hệ Thống</h1></center> */}
       <Tabs defaultActiveKey='advertisement' >
         <Tab eventKey='advertisement' title='Bảng hiệu'>
-          <Advertisement {...props} />
+          <Advertisement {...props} data={{..._.pick(data, ['advertisements', 'styles', 'images'])}} />
         </Tab>
         <Tab eventKey='image' title='Hình ảnh'>
-          <Image {...props} />
+          <Image {...props} images={data.images} />
+        </Tab>
+        <Tab eventKey='advertisementStyle' title='Loại bảng hiệu'>
+          <AdvertisementStyle {...props} styles={data.styles} />
+        </Tab>
+        <Tab eventKey='news' title='Tin tức'>
+          <News {...props} newsList={data.newsList} />
         </Tab>
       </Tabs>
     </div>

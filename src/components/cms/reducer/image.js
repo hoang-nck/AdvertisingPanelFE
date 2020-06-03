@@ -4,6 +4,9 @@ import * as fileCtr from '../../../api/controller/file'
 const image = async (state, action, props) => {
   const getButton = name => ({ button: { ...state.button, [name]: _.get(state.button, name, 1) + 2 } })
   const cases = {
+    setImages: () => {
+      return { ...state, images: action.images, ...getButton('getImages') }
+    },
     getImages: async () => {
       const rs = await fileCtr.get({sort: 'name'})()
       const data = { }

@@ -19,6 +19,14 @@ module.exports = {
     base: '/advertisements'
   },
 
+  style: {
+    base: '/styles'
+  },
+
+  news: {
+    base: '/news'
+  },
+
   file: {
     base: '/files',
     uploadFile: 'files/uploadfile'

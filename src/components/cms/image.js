@@ -21,7 +21,7 @@ export default function Image (props) {
   const fileEl = useRef(null)
   const { button, file, images, showIdx, search } = state
 
-  useEffect(() => { disPatch('getImages') }, [])
+  useEffect(() => { disPatch({type: 'setImages', images: props.images}) }, [props.images])
 
   return (
     <div className='clsImg clsItem'>

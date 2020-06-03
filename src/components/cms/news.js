@@ -1,27 +1,25 @@
 import React, { useEffect } from 'react'
 import { Table, Modal, CardColumns, Card, Image } from 'react-bootstrap'
-import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 
 import common from '../../utils/common'
 import Textbox from '../common/inputs/textbox'
 import Button from '../common/button'
 
-import { advertisement as reducer } from './reducer'
+import { news as reducer } from './reducer'
 import config from '../../utils/config'
 
 const initialState = {
   showIdx: -1,
   editIdx: -1,
   images: [],
-  imgChoosed: [],
+  imgChoosed: '',
   imgValue: '',
   search: '',
-  button: { getAdvertisements: 1 },
+  button: { getNewsList: 1 },
   sort: {},
-  styles: [],
-  advertisement: {},
-  advertisements: []
+  news: {},
+  newsList: []
 }
 
 const getIconSort = value => {
@@ -30,81 +28,64 @@ const getIconSort = value => {
   return 'fas fa-sort-amount-up'
 }
 
-export default function Advertisement (props) {
+export default function News (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
-  const { advertisement, editIdx, showIdx, showimgModalIdx, advertisements, button, sort, images, search, imgChoosed, imgValue } = state
+  const { news, editIdx, showIdx, showimgModalIdx, newsList, button, sort, images, search, imgChoosed, imgValue } = state
   const onChangeNew = e => disPatch({type: 'onChangeNew', e: _.pick(e.target, ['name', 'value'])})
   const onChangeEdit = e => disPatch({type: 'onChangeEdit', e: _.pick(e.target, ['name', 'value'])})
 
-  useEffect(() => { disPatch({type: 'setProps', data: props.data}) }, [props.data])
-
-  const choosedImages = showimgModalIdx === 0 ? imgChoosed : showimgModalIdx > 0 ? advertisements[showimgModalIdx - 1].images || [] : []
+  useEffect(() => { disPatch({type: 'setNewsList', newsList: props.newsList}) }, [props.newsList])
+  const choosedImage = showimgModalIdx === 0 ? imgChoosed : showimgModalIdx > 0 ? newsList[showimgModalIdx - 1].image || '' : ''
 
   return (
     <div className='clsAdv clsItem'>
-      <h3><strong>Quản lý Bảng Hiệu</strong></h3>
+      <h3><strong>Quản lý Tin Tức</strong></h3>
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
             <th><strong>Tiêu đề</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'title'}) }} icon={getIconSort(sort.title)} /></th>
-            <th><strong>Ưu tiên</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'sequence'}) }} icon={getIconSort(sort.title)} /></th>
-            <th><strong>Giá</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
-            <th><strong>Thời gian</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'time'}) }} icon={getIconSort(sort.time)} /></th>
-            <th><strong>Miêu tả</strong></th>
-            <th className='col-auto'><strong>Hình</strong></th>
-            <th><strong>video</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'video'}) }} icon={getIconSort(sort.video)} /></th>
-            <th><Button className='clrGreen' loading={button.getAdvertisements} onClick={() => { disPatch('clear'); disPatch('getAdvertisements') }} icon='fas fa-sync-alt' /></th>
+            <th><strong>Nội dung</strong></th>
+            <th><strong>Hình</strong></th>
+            <th><Button className='clrGreen' loading={button.getNewsList} onClick={() => { disPatch('clear'); disPatch('getNewsList') }} icon='fas fa-sync-alt' /></th>
           </tr>
         </thead>
         <tbody>
           <tr key={0}>
             <td>0</td>
-            <td><Textbox type='text' name='title' value={advertisement.title} onChange={onChangeNew} title='' /></td>
-            <td><Textbox type='number' name='sequence' value={advertisement.sequence} onChange={onChangeNew} title='' /></td>
-            <td><Textbox type='number' name='price' value={advertisement.price} onChange={onChangeNew} title='' /></td>
-            <td><Textbox type='text' name='time' value={advertisement.time} onChange={onChangeNew} title='' /></td>
-            <td><Textbox type='text' name='description' value={advertisement.description} onChange={onChangeNew} title='' /></td>
+            <td><Textbox type='text' name='title' value={news.title} onChange={onChangeNew} title='' /></td>
+            <td><Textbox type='text' name='content' value={news.content} onChange={onChangeNew} title='' /></td>
             <td className='col-auto'>
               <div className='clsImgDiv'>
                 <Button name='chooseImg' className='clrGreen' onClick={e => disPatch({type: 'showImageModel', index: 0, e})} noLoading icon='far fa-arrow-alt-circle-right' />
-                <span className='clsImgChoosed'>{imgChoosed.map((img, idx) => <Image src={(img.indexOf('/images/') === 0 ? config.serverUrl : '') + img} />)}</span>
+                <span className='clsImgChoosed'><Image src={(imgChoosed.indexOf('/images/') === 0 ? config.serverUrl : '') + imgChoosed} /></span>
               </div>
             </td>
-            <td><Textbox type='text' name='video' value={advertisement.video} onChange={onChangeNew} title='' /></td>
             <td className='center'><Button name='save' className='clrGreen' onClick={() => disPatch('save')} loading={button.save} icon='fas fa-share-square' /></td>
           </tr>
-          {advertisements.map((item, idx) => (
+          {newsList.map((item, idx) => (
             <tr key={idx + 1} onClick={e => disPatch({type: 'onClickEdit', index: idx, e})}>
               <td>{idx + 1}</td>
               {
                 editIdx !== idx
                   ? <React.Fragment>
                     <td><div>{item.title}</div></td>
-                    <td><div>{item.sequence}</div></td>
-                    <td><NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <div className='clsPrice'>{value} <span className='clrRed'>vnđ</span></div>} /></td>
-                    <td><div>{item.time}</div></td>
-                    <td><div>{item.description}</div></td>
+                    <td><div>{item.content}</div></td>
                     <td className='col-auto'>
                       <div className='clsImgDiv'>
-                        <span className='clsImgChoosed'>{item.images.map((img, idx) => <Image key={idx} src={(img.indexOf('/images/') === 0 ? config.serverUrl : '') + img} />)}</span>
+                        <span className='clsImgChoosed'><Image key={idx} src={((item.image || '').indexOf('/images/') === 0 ? config.serverUrl : '') + item.image} /></span>
                       </div>
                     </td>
-                    <td>{item.video}</td>
                   </React.Fragment>
                   : <React.Fragment>
                     <td><Textbox type='text' name='title' value={item.title} onChange={onChangeEdit} title='' /></td>
-                    <td><Textbox type='number' name='sequence' value={item.sequence} onChange={onChangeEdit} title='' /></td>
-                    <td><Textbox type='number' name='price' value={item.price} onChange={onChangeEdit} title='' /></td>
-                    <td><Textbox type='text' name='time' value={item.time} onChange={onChangeEdit} title='' /></td>
-                    <td><Textbox type='text' name='description' value={item.description} onChange={onChangeEdit} title='' /></td>
+                    <td><Textbox type='text' name='content' value={item.content} onChange={onChangeEdit} title='' /></td>
                     <td className='col-auto'>
                       <div className='clsImgDiv'>
                         <Button name='chooseImg' className='clrGreen' onClick={e => disPatch({type: 'showImageModel', index: idx + 1, e})} noLoading icon='far fa-arrow-alt-circle-right' />
-                        <span className='clsImgChoosed'>{(item.images || []).map((img, idx) => <Image key={idx} src={(img.indexOf('/images/') === 0 ? config.serverUrl : '') + img} />)}</span>
+                        <span className='clsImgChoosed'><Image key={idx} src={((item.image || '').indexOf('/images/') === 0 ? config.serverUrl : '') + item.image} /></span>
                       </div>
                     </td>
-                    <td><Textbox type='text' name='video' value={item.video} onChange={onChangeEdit} title='' /></td>
                   </React.Fragment>
               }
               <td className='center'>
@@ -117,9 +98,9 @@ export default function Advertisement (props) {
       </Table>
       <Modal show={showIdx > -1} onHide={() => disPatch({type: 'onHide', name: 'showIdx'})} centered>
         <Modal.Header closeButton >
-          <Modal.Title>Xoá bảng hiệu</Modal.Title>
+          <Modal.Title>Xoá Tin Tức</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{`Bạn có chắc là muốn xoá Bảng hiệu ${_.get(advertisements[showIdx], 'title', '')}`}</Modal.Body>
+        <Modal.Body>{`Bạn có chắc là muốn xoá Tin tức: ${_.get(newsList[showIdx], 'title', '')}`}</Modal.Body>
         <Modal.Footer>
           <Button name='cancel' noLoading onClick={() => disPatch({type: 'onHide', name: 'showIdx'})} icon='fa fa-reply-all' value='Huỷ' />
           <Button name='delete' className='clrBlue' onClick={() => disPatch('delete')} loading={button.delete} icon='fas fa-trash-alt' value='Xoá' />
@@ -128,8 +109,8 @@ export default function Advertisement (props) {
       <Modal show={showimgModalIdx > -1} onHide={() => disPatch({type: 'onHide', name: 'showimgModalIdx'})} size='lg' className='clsModalAdv' >
         <Modal.Header closeButton >
           <Modal.Title className='w-100'>
-            Chọn hình: <span className='clsImgChoosed'>{choosedImages.map((img, idx) => <Image title={img.name} src={(img.indexOf('/images/') === 0 ? config.serverUrl : '') + img} />)}</span>
-            {!_.isEmpty(choosedImages) && <Button className='clrGreen floatR' title='Xoá tất cả' noLoading onClick={() => { disPatch('clearChoosedImg') }} icon='fas fa-eraser' />}
+            Chọn hình: <span className='clsImgChoosed'>{choosedImage && <Image title={choosedImage} src={(choosedImage.indexOf('/images/') === 0 ? config.serverUrl : '') + choosedImage} />}</span>
+            {!_.isEmpty(choosedImage) && <Button className='clrGreen floatR' title='Xoá tất cả' noLoading onClick={() => { disPatch('clearChoosedImg') }} icon='fas fa-eraser' />}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -143,7 +124,7 @@ export default function Advertisement (props) {
           </div> <br />
           <CardColumns>
             {images.filter(item => (item.name || '').toLowerCase().search(search.toLowerCase()) >= 0).map((item, idx) => (
-              <Card key={idx} className={choosedImages.findIndex(el => el === item.path) >= 0 ? 'choosed' : ''} onClick={() => disPatch({type: 'onClickImg', index: idx})}>
+              <Card key={idx} className={choosedImage === item.path ? 'choosed' : ''} onClick={() => disPatch({type: 'onClickImg', index: idx})}>
                 <Card.Img variant='top' src={config.serverUrl + item.path} />
                 <Card.Body>
                   <Card.Title>{item.name}</Card.Title>
