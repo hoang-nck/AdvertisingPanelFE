@@ -1,10 +1,10 @@
 .clsCube {
   .wrap {
     margin-top           : 90px;
-    perspective       : 1000px;
+    perspective          : 1000px;
     perspective-origin   : 50% 50%;
     background-image     : url(/images/banner_design.png);
-    background-size: 800px 200px;
+    background-size      : 800px 200px;
     // border-top        : solid 3px #999;
     // border-bottom     : solid 3px #999;
     /* Background stripes animation */
@@ -104,26 +104,54 @@
   }
 
   .wrap:hover .front {
-    transform: translateZ(200px);
+    transform: translateZ(130px);
   }
 
   .wrap:hover .back {
-    transform: translateZ(-200px) rotateY(180deg);
+    transform: translateZ(-130px) rotateY(180deg);
   }
 
   .wrap:hover .right {
-    transform: rotateY(-270deg) translateZ(100px) translateX(100px);
+    transform: rotateY(-270deg) translateZ(30px) translateX(100px);
   }
 
   .wrap:hover .left {
-    transform: rotateY(270deg) translateZ(100px) translateX(-100px);
+    transform: rotateY(270deg) translateZ(30px) translateX(-100px);
   }
 
   .wrap:hover .top {
-    transform: rotateX(-270deg) translateZ(100px) translateY(-100px);
+    transform: rotateX(-270deg) translateZ(30px) translateY(-100px);
   }
 
   .wrap:hover .bottom {
-    transform: rotateX(270deg) translateZ(100px) translateY(100px);
+    transform: rotateX(270deg) translateZ(30px) translateY(100px);
+  }
+
+
+  @media (min-width: 576px) {
+
+    .wrap:hover .front {
+      transform: translateZ(200px);
+    }
+
+    .wrap:hover .back {
+      transform: translateZ(-200px) rotateY(180deg);
+    }
+
+    .wrap:hover .right {
+      transform: rotateY(-270deg) translateZ(100px) translateX(100px);
+    }
+
+    .wrap:hover .left {
+      transform: rotateY(270deg) translateZ(100px) translateX(-100px);
+    }
+
+    .wrap:hover .top {
+      transform: rotateX(-270deg) translateZ(100px) translateY(-100px);
+    }
+
+    .wrap:hover .bottom {
+      transform: rotateX(270deg) translateZ(100px) translateY(100px);
+    }
   }
 }
