@@ -1,13 +1,10 @@
 import advertisement from './advertisement'
-import detailAdv from './detailAdv'
 
 const reducer = {
-  advertisement,
-  detailAdv
+  advertisement
 }
 
 export default reducer
 export {
-  advertisement,
-  detailAdv
+  advertisement
 }

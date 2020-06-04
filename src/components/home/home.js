@@ -17,7 +17,6 @@ import { advertisement as reducer } from './reducer'
 import './home.scss'
 
 const initialState = {
-  advertisements: [],
   advertisement: {}
 }
 
@@ -41,15 +40,23 @@ const getSrc = item => {
 function Home (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
   const { advertisement } = state
-  const { advertisements, advertisementAc: { getAdvertisements } } = props
+  const { advertisements, advertisementAc: { getAdvertisements }, match: { params }, history } = props
 
   useEffect(() => {
     _.isEmpty(advertisements) && _.isFunction(getAdvertisements) && getAdvertisements({populate: 'style', sort: 'title'})
   }, [])
 
+  params._id && useEffect(() => {
+    const item = advertisements.find(e => e._id === params._id)
+    item && disPatch({ type: 'setAdvertisement', item })
+  }, [advertisements])
+
+  const onClick = item => history.push(`/advertisements/${item._id}`)
+  const onHide = () => history.push(`/`)
+
   return (
     <div className='clsHome'>
-      <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => disPatch({ type: 'clickCube', item })} />
+      <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={onClick} />
       <h1>Chào mừng bạn đến với Thiết kế bảng hiệu</h1>
       <div className='clsMain'>
         <div className='clsSlide'>
@@ -58,7 +65,7 @@ function Home (props) {
             {advertisements.sort().map((item, idx) => {
               return <div key={idx} className='clsSlideItem'>
                 <div>
-                  <Image src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
+                  <Image src={getSrc(item)} onClick={() => onClick(item)} />
                   <strong className='title'>{item.title}</strong>
                   <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='price'>{value} <span className='clrRed'>vnđ</span></span>} />
                 </div>
@@ -72,7 +79,7 @@ function Home (props) {
             {advertisements.map((item, idx) => {
               return (
                 <Card key={idx} >
-                  <Card.Img variant='top' src={getSrc(item)} onClick={() => disPatch({ type: 'clickCube', item })} />
+                  <Card.Img variant='top' src={getSrc(item)} onClick={() => onClick(item)} />
                   <Card.Body>
                     <Card.Title>{item.title}</Card.Title>
                     <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} />
@@ -83,7 +90,7 @@ function Home (props) {
           </CardColumns>
         </div>
       </div>
-      <Modal show={!_.isEmpty(advertisement)} onHide={() => disPatch({ type: 'onHide', name: 'advertisement' })} size='lg' >
+      <Modal show={!_.isEmpty(advertisement)} onHide={onHide} size='lg' >
         <Modal.Header closeButton >
           <Modal.Title className='w-100'>Chi tiết bảng hiệu</Modal.Title>
         </Modal.Header>
