@@ -48,14 +48,12 @@ export default connect(state => ({
     <div>
       <main>
         <Switch>
-          <Route path={'/'} exact component={() => <Home {...props} />} />
-          <Route path={'/advertisements'} exact component={() => <Home {...props} />} />
-          <Route path={'/advertisements/:_id'} component={data => <Home {...props} {...data} />} />
+          <Route path={'/home'} component={data => <Home {...props} {...data} />} />
           <Route path={`/contact`} component={UserSubLayout} />
           <Route path={`/workspace`} component={WorkSpace} />
           {logged && <Route path={`/example`} component={() => <Example value1={7} />} />}
           {logged && <Route path={`/cms`} component={() => <Cms {...props} />} />}
-          <Redirect to={'/'} />
+          <Redirect to={'/home'} />
         </Switch>
       </main>
     </div>

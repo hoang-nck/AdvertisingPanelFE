@@ -2,23 +2,18 @@ import React, { useEffect } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Slider from 'react-slick'
-import { Modal, CardColumns, Card, Image } from 'react-bootstrap'
+import { CardColumns, Card, Image } from 'react-bootstrap'
+import { Route, Switch } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 
 import Cube from '../common/cube'
 import DetailAdvertisement from './detailAdvertisement'
 
-import common from '../../utils/common'
 import config from '../../utils/config'
 import * as advertisementAc from '../../actions/advertisement'
-import { advertisement as reducer } from './reducer'
 
 import './home.scss'
-
-const initialState = {
-  advertisement: {}
-}
 
 const settings = {
   dots: true,
@@ -38,21 +33,12 @@ const getSrc = item => {
 }
 
 function Home (props) {
-  const [state, disPatch] = common.useReducer(reducer, initialState, props)
-  const { advertisement } = state
-  const { advertisements, advertisementAc: { getAdvertisements }, match: { params }, history } = props
+  const { advertisements, advertisementAc: { getAdvertisements }, match, history } = props
 
   useEffect(() => {
-    _.isEmpty(advertisements) && _.isFunction(getAdvertisements) && getAdvertisements({populate: 'style', sort: 'title'})
+    _.isEmpty(advertisements) && _.isFunction(getAdvertisements) && getAdvertisements({ populate: 'style', sort: 'title' })
   }, [])
-
-  params._id && useEffect(() => {
-    const item = advertisements.find(e => e._id === params._id)
-    item && disPatch({ type: 'setAdvertisement', item })
-  }, [advertisements])
-
-  const onClick = item => history.push(`/advertisements/${item._id}`)
-  const onHide = () => history.push(`/`)
+  const onClick = item => history.push(`${match.path}/advertisements/${item._id}`)
 
   return (
     <div className='clsHome'>
@@ -90,14 +76,15 @@ function Home (props) {
           </CardColumns>
         </div>
       </div>
-      <Modal show={!_.isEmpty(advertisement)} onHide={onHide} size='lg' >
-        <Modal.Header closeButton >
-          <Modal.Title className='w-100'>Chi tiết bảng hiệu</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {!_.isEmpty(advertisement) && <DetailAdvertisement advertisement={advertisement} />}
-        </Modal.Body>
-      </Modal>
+      <div>
+        <Route component={({ match }) =>
+          <main>
+            <Switch>
+              <Route path={`${match.path}/advertisements/:_id`} component={props => <DetailAdvertisement advertisements={advertisements} {...props} />} />
+            </Switch>
+          </main>
+        } />
+      </div>
     </div>
   )
 }
