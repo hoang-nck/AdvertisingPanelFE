@@ -8,5 +8,8 @@ module.exports = {
   },
   common: {
     addAlert: 'addAlert'
+  },
+  advertisement: {
+    get: 'getAdvertisements'
   }
 }

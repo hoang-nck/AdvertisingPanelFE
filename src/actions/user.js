@@ -4,7 +4,7 @@ import types from './types'
 import user from '../api/controller/user'
 
 module.exports = {
-  login: (obj) => async dispatch => {
+  login: obj => async dispatch => {
     try {
       const rs = await user.login(obj)()
       if (rs.success) {

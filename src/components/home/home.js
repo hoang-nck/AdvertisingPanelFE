@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import Slider from 'react-slick'
 import { Modal, CardColumns, Card, Image } from 'react-bootstrap'
 import NumberFormat from 'react-number-format'
@@ -9,6 +11,7 @@ import DetailAdvertisement from './detailAdvertisement'
 
 import common from '../../utils/common'
 import config from '../../utils/config'
+import * as advertisementAc from '../../actions/advertisement'
 import { advertisement as reducer } from './reducer'
 
 import './home.scss'
@@ -35,10 +38,15 @@ const getSrc = item => {
   return src
 }
 
-export default function Home (props) {
+function Home (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
-  const { advertisements, advertisement } = state
-  useEffect(() => { disPatch('getAdvertisements') }, [])
+  const { advertisement } = state
+  const { advertisements, advertisementAc: { getAdvertisements } } = props
+
+  useEffect(() => {
+    _.isEmpty(advertisements) && _.isFunction(getAdvertisements) && getAdvertisements({populate: 'style', sort: 'title'})
+  }, [])
+
   return (
     <div className='clsHome'>
       <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => disPatch({ type: 'clickCube', item })} />
@@ -86,3 +94,9 @@ export default function Home (props) {
     </div>
   )
 }
+
+export default connect(state => ({
+  advertisements: state.advertisement.advertisements
+}), dispatch => ({
+  advertisementAc: bindActionCreators(advertisementAc, dispatch)
+}))(Home)
