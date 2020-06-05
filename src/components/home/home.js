@@ -77,13 +77,15 @@ function Home (props) {
         </div>
       </div>
       <div>
-        <Route component={({ match }) =>
-          <main>
-            <Switch>
-              <Route path={`${match.path}/advertisements/:_id`} component={props => <DetailAdvertisement advertisements={advertisements} {...props} />} />
-            </Switch>
-          </main>
-        } />
+        <Route render={({ match }) => {
+          return (
+            <main>
+              <Switch>
+                <Route path={`${match.path}/advertisements/:_id`} render={props => <DetailAdvertisement advertisements={advertisements} {...props} />} />
+              </Switch>
+            </main>
+          )
+        }} />
       </div>
     </div>
   )

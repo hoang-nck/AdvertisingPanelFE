@@ -48,11 +48,11 @@ export default connect(state => ({
     <div>
       <main>
         <Switch>
-          <Route path={'/home'} component={data => <Home {...props} {...data} />} />
+          <Route path={'/home'} render={data => <Home {...props} {...data} />} />
           <Route path={`/contact`} component={UserSubLayout} />
           <Route path={`/workspace`} component={WorkSpace} />
-          {logged && <Route path={`/example`} component={() => <Example value1={7} />} />}
-          {logged && <Route path={`/cms`} component={() => <Cms {...props} />} />}
+          {logged && <Route path={`/example`} render={() => <Example value1={7} />} />}
+          {logged && <Route path={`/cms`} render={() => <Cms {...props} />} />}
           <Redirect to={'/home'} />
         </Switch>
       </main>

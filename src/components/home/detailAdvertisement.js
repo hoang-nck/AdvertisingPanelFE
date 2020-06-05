@@ -51,6 +51,5 @@ export default function DetailAdvertisement (props) {
         </div>
       </Modal.Body>
     </Modal>
-
   )
 }
