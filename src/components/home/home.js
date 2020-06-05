@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Slider from 'react-slick'
@@ -10,7 +10,9 @@ import Cube from '../common/cube'
 import DetailAdvertisement from './detailAdvertisement'
 import DetailNews from './detailNews'
 
+import common from '../../utils/common'
 import config from '../../utils/config'
+import { home as reducer } from './reducer'
 import * as homeAc from '../../actions/home'
 
 import './home.scss'
@@ -26,14 +28,65 @@ const settings = {
   cssEase: 'linear'
 }
 
+const styleSettings = {
+  dots: true,
+  infinite: false,
+  speed: 400,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 4000,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+}
+
+const getIconShowHide = value => {
+  if (value) return <i className='fas fa-eye clrBlack' />
+  return <i className='far fa-eye-slash clrWhite' />
+}
+
 const getSrc = (item, isUrl = false) => {
   const img = isUrl ? (item || '') : _.get(item, 'images[0]', '')
   const src = (img.indexOf('/images/') === 0 ? config.serverUrl : '') + img
   return src
 }
 
+const initialState = {
+  showHide: {}
+}
+
 function Home (props) {
+  const [state, disPatch] = common.useReducer(reducer, initialState, props)
   const { advertisements, newsList, homeAc: { getAdvertisements, getNewsList }, match, history } = props
+  const { showHide } = state
 
   useEffect(() => {
     _.isEmpty(advertisements) && _.isFunction(getAdvertisements) && getAdvertisements({ populate: 'style', sort: 'title' })
@@ -41,14 +94,24 @@ function Home (props) {
   }, [])
   const onClick = path => history.push(`${match.path}/${path}`)
 
+  const styles = advertisements.reduce((rs, item) => {
+    const style = rs.find(vl => _.get(vl, 'style._id', null) === _.get(item, 'style._id', undefined))
+    if (style) {
+      style.advertisements.push(item)
+    } else if (item.style) {
+      rs.push({ style: item.style, advertisements: [item] })
+    }
+    return rs
+  }, [])
+
   return (
     <div className='clsHome'>
       <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => onClick(`advertisements/${item._id}`)} />
       <h1>Chào mừng bạn đến với Thiết kế bảng hiệu</h1>
       <div className='clsMain'>
         <div className='clsSlide'>
-          <div className='clsItemtitle'>Bảng hiệu chuộng nhất</div>
-          <Slider {...settings}>
+          <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'slider'})}>{getIconShowHide(!showHide.slider)} Bảng hiệu chuộng nhất</div>
+          <Slider {...settings} className={`${!showHide.slider ? '' : 'none'}`}>
             {advertisements.sort().map((item, idx) => {
               return <div key={idx} className='clsSlideItem'>
                 <div>
@@ -60,11 +123,32 @@ function Home (props) {
             })}
           </Slider>
         </div>
+        <div className='clsStyle'>
+          {styles.map((data, idx) => {
+            const { style, advertisements } = data
+            return (
+              <div className='clsSlide' key={idx}>
+                <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: style._id})}>{getIconShowHide(!showHide[style._id])} Loại {style.name}</div>
+                <Slider {...styleSettings} className={`${!showHide[style._id] ? '' : 'none'}`}>
+                  {advertisements.sort().map((item, idx) => {
+                    return <div key={idx} className='clsSlideItem'>
+                      <div>
+                        <Image src={getSrc(item)} onClick={() => onClick(`advertisements/${item._id}`)} />
+                        <strong className='title'>{item.title}</strong>
+                        <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='price'>{value} <span className='clrRed'>vnđ</span></span>} />
+                      </div>
+                    </div>
+                  })}
+                </Slider>
+              </div>
+            )
+          })}
+        </div>
         <Row>
           <Col md={12} lg={9} >
             <div className='clsCard'>
-              <div className='clsItemtitle'>Bảng hiệu gần đây</div>
-              <CardColumns>
+              <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'current'})}>{getIconShowHide(!showHide.current)} Bảng hiệu gần đây</div>
+              <CardColumns className={`${!showHide.current ? '' : 'none'}`}>
                 {advertisements.map((item, idx) => {
                   return (
                     <Card key={idx} >
@@ -80,24 +164,25 @@ function Home (props) {
             </div>
           </Col>
           <Col md={12} lg={3} className='clsNews' >
-            <div className='clsItemtitle'>Tin tức</div>
-            {newsList.map((news, idx) => {
-              return (
-                <Media key={idx} onClick={() => onClick(`news/${news._id}`)}>
-                  <img
-                    width={100}
-                    className='mr-3'
-                    src={getSrc(news.image, true)}
-                  />
-                  <Media.Body>
-                    <h5>{news.title}</h5>
-                  </Media.Body>
-                </Media>
-              )
-            })}
+            <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'news'})}>{getIconShowHide(!showHide.news)}Tin tức</div>
+            <div className={`${!showHide.news ? '' : 'none'}`}>
+              {newsList.map((news, idx) => {
+                return (
+                  <Media key={idx} onClick={() => onClick(`news/${news._id}`)}>
+                    <img
+                      width={100}
+                      className='mr-3'
+                      src={getSrc(news.image, true)}
+                    />
+                    <Media.Body>
+                      <h5>{news.title}</h5>
+                    </Media.Body>
+                  </Media>
+                )
+              })}
+            </div>
           </Col>
         </Row>
-
       </div>
       <div>
         <Route render={({ match }) => {

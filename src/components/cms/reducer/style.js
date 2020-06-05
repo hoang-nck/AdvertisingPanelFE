@@ -123,4 +123,3 @@ const style = async (state, action, props) => {
 }
 
 export default style
-
