@@ -89,7 +89,16 @@
       }
     }
 
-
+    .clsNews {
+      .media {
+        margin-bottom: 10px;
+        cursor: pointer;
+        &:hover {
+          background: black;
+          color: white;
+        }
+      }
+    }
   }
 }
 

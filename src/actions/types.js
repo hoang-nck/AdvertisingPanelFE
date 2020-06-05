@@ -9,7 +9,8 @@ module.exports = {
   common: {
     addAlert: 'addAlert'
   },
-  advertisement: {
-    get: 'getAdvertisements'
+  home: {
+    getAdvertisements: 'getAdvertisements',
+    getNewsList: 'getNewsList'
   }
 }
