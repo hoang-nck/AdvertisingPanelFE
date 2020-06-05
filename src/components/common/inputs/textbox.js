@@ -3,7 +3,6 @@ import React from 'react'
 export default function Textbox ({ className, title, name, type, value, defaultValue, onChange, onBlur, onClickP, style }) {
   const vl = value || defaultValue
   let cls = ((typeof vl === 'string' && vl !== '') || typeof vl === 'number') ? 'clsInput filled' : 'clsInput'
-  cls += ' ' + (className || '')
   let styleL = {}, styleS = {}, styleP = {}, styleI = {}
 
   if (style) {
@@ -23,6 +22,8 @@ export default function Textbox ({ className, title, name, type, value, defaultV
     styleP = {...style.styleP, ...styleP}
     styleI = {...style.styleI, ...styleI}
   }
+
+  cls += ' ' + (className || '')
 
   const inputData = {
     type,

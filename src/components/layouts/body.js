@@ -43,7 +43,7 @@ export default connect(state => ({
 }), dispatch => ({
   commonAc: bindActionCreators(commonAc, dispatch)
 }))(props => {
-  const { logged } = props
+  const { logged, user: { role } } = props
   return (
     <div>
       <main>
@@ -51,8 +51,8 @@ export default connect(state => ({
           <Route path={'/home'} render={data => <Home {...props} {...data} />} />
           <Route path={`/contact`} component={UserSubLayout} />
           <Route path={`/workspace`} component={WorkSpace} />
-          {logged && <Route path={`/example`} render={() => <Example value1={7} />} />}
-          {logged && <Route path={`/cms`} render={() => <Cms {...props} />} />}
+          {logged && ['Developer'].includes(role) && <Route path={`/example`} render={() => <Example value1={7} />} />}
+          {logged && ['Admin', 'Developer'].includes(role) && <Route path={`/cms`} render={() => <Cms {...props} />} />}
           <Redirect to={'/home'} />
         </Switch>
       </main>

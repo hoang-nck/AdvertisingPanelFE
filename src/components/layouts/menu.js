@@ -9,7 +9,7 @@ export default connect(state => ({
   logged: state.auth.logged,
   user: state.auth.user
 }), null)(props => {
-  const { logged } = props
+  const { logged, user: { role } } = props
 
   return (
     <Navbar className='clsMenu' expand='lg' style={{padding: '0 8px'}}>
@@ -20,8 +20,8 @@ export default connect(state => ({
           <NavLink className='nav-link' to='/' exact activeClassName='active'>Trang chủ</NavLink>
           <NavLink className='nav-link' to='/workspace'>Giới thiệu</NavLink>
           <NavLink className='nav-link' to='/contact'>Liên hệ</NavLink>
-          {logged && <NavLink className='nav-link' to='/example'>Example</NavLink>}
-          {logged && <NavLink className='nav-link' to='/cms'>CMS</NavLink>}
+          {logged && ['Developer'].includes(role) && <NavLink className='nav-link' to='/example'>Example</NavLink>}
+          {logged && ['Admin', 'Developer'].includes(role) && <NavLink className='nav-link' to='/cms'>CMS</NavLink>}
         </Nav>
         <Navbar.Text>
           <Account />
