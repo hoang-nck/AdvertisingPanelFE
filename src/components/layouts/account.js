@@ -71,13 +71,13 @@ const Account = connect((state) => ({
   const { button } = state
 
   return logged ? (
-    <div>
+    <div key='0'>
       <Button className='clrGreen' loading={button.logout} onClick={() => disPatch('logout')} icon='fa fa-reply-all' value='Logout' />&nbsp;
       <Button className='clrGreen' noLoading icon='fa fa-user' value={user.name} />&nbsp;
     </div>
   ) : (
     <React.Fragment>
-      <div>
+      <div key='1'>
         <Button className='clrGreen' noLoading onClick={() => disPatch('register')} icon='fab fa-rebel' value='Register' />&nbsp;
         <Button className='clrGreen' noLoading onClick={() => disPatch('login')} icon='far fa-paper-plane' value='Login' />
       </div>
