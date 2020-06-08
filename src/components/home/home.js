@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Slider from 'react-slick'
@@ -80,7 +80,8 @@ const getSrc = (item, isUrl = false) => {
 }
 
 const initialState = {
-  showHide: {}
+  showHide: { slider: false, current: false, news: false },
+  allShowHide: true
 }
 
 function Home (props) {
@@ -104,8 +105,10 @@ function Home (props) {
     return rs
   }, [])
 
+  const allShowHide = !_.keys(showHide).find(key => !showHide[key])
   return (
     <div className='clsHome'>
+      <span className={`allShowHide ${allShowHide ? '' : 'clrBlack'}`} onClick={() => disPatch({type: 'allShowHide', allShowHide: !allShowHide, styles})}>{getIconShowHide(!allShowHide)}</span>
       <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => onClick(`advertisements/${item._id}`)} />
       <h1>Chào mừng bạn đến với Thiết kế bảng hiệu</h1>
       <div className='clsMain'>
