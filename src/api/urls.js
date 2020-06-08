@@ -27,6 +27,10 @@ module.exports = {
     base: '/news'
   },
 
+  info: {
+    base: '/info'
+  },
+
   file: {
     base: '/files',
     uploadFile: 'files/uploadfile'

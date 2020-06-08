@@ -46,8 +46,8 @@ export default function DetailAdvertisement (props) {
             <NumberFormat value={advertisement.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} /><br />
             <strong className='clrBlue'>Thời gian hoàn thành:</strong> {advertisement.time}
           </p>
-          {advertisement.video && <iframe className='video' src={`https://www.youtube.com/embed/${advertisement.video}`} allowfullscreen='' />}
-          {advertisement.description && <iframe onLoad={el => resizeIframe(el)} width='100%' frameborder='0' scrolling='no' srcdoc={advertisement.description} />}
+          {advertisement.video && <iframe className='video' src={`https://www.youtube.com/embed/${advertisement.video}`} allowFullScreen='' />}
+          {advertisement.description && <iframe onLoad={el => resizeIframe(el)} width='100%' frameBorder='0' scrolling='no' srcdoc={advertisement.description} />}
           <div className='clsHotline'>
             <a className='clsFace' href='https://www.facebook.com/banghieuhopden79' target='_blank'>&nbsp;&nbsp;<i className='fab fa-facebook' />&nbsp;&nbsp;</a> <br />
             <a className='clsZalo' href='https://zalo.me/0901345535' target='_blank'>Zalo</a> <br />

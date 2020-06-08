@@ -11,6 +11,7 @@ module.exports = {
   },
   home: {
     getAdvertisements: 'getAdvertisements',
-    getNewsList: 'getNewsList'
+    getNewsList: 'getNewsList',
+    getInfo: 'getInfo'
   }
 }

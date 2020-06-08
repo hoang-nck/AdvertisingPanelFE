@@ -72,7 +72,7 @@ const Account = connect((state) => ({
 
   return logged ? (
     <div key='0'>
-      <Button className='clrGreen' loading={button.logout} onClick={() => disPatch('logout')} icon='fa fa-reply-all' value='Logout' />&nbsp;
+      <Button id='logoutId' className='clrGreen' loading={button.logout} onClick={() => disPatch('logout')} icon='fa fa-reply-all' value='Logout' />&nbsp;
       <Button className='clrGreen' noLoading icon='fa fa-user' value={user.name} />&nbsp;
     </div>
   ) : (

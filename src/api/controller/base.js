@@ -21,6 +21,8 @@ export default class Base {
   }
 
   resetOption = options => {
+    if (_.isEmpty(options)) return {}
+
     const arr = ['match', 'sort', 'field', 'populate']
     for (const key of arr) {
       options[key] && (options[key] = JSON.stringify(options[key]))

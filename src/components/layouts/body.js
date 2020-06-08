@@ -1,41 +1,14 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Route, Redirect, Switch, NavLink, withRouter } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 
 import Home from '../home/home'
 import Example from '../pages/examples'
-import WorkSpace from '../workSpace'
+import Info from '../info/info'
 import Cms from '../cms'
 
 import * as commonAc from '../../actions/common'
-
-// Sub Layouts
-import BrowseUsersPage from '../pages/browseUsersPage'
-import AddUserPage from '../pages/addUsersPage'
-import UserProfilePage from '../pages/userProfilePage'
-
-const UserNav = withRouter(({ match }) => (
-  <nav className='context-nav'>
-    <NavLink to={`${match.path}`} exact activeClassName='active'>Browse</NavLink>
-    <NavLink to={`${match.path}/add`} activeClassName='active'>Add</NavLink>
-  </nav>
-))
-
-const UserSubLayout = ({ match }) => (
-  <div className='user-sub-layout'>
-    <aside>
-      <UserNav />
-    </aside>
-    <div className='primary-content'>
-      <Switch>
-        <Route path={match.path} exact component={BrowseUsersPage} />
-        <Route path={`${match.path}/add`} exact component={AddUserPage} />
-        <Route path={`${match.path}/:userId`} component={UserProfilePage} />
-      </Switch>
-    </div>
-  </div>
-)
 
 export default connect(state => ({
   logged: state.auth.logged,
@@ -49,8 +22,8 @@ export default connect(state => ({
       <main>
         <Switch>
           <Route path={'/home'} render={data => <Home {...props} {...data} />} />
-          <Route path={`/contact`} component={UserSubLayout} />
-          <Route path={`/workspace`} component={WorkSpace} />
+          <Route path={`/contact`} render={() => <Info field='contact' title='Liên hệ' />} />
+          <Route path={`/introduction`} render={() => <Info field='introduction' title='Giới thiệu' />} />
           {logged && ['Developer'].includes(role) && <Route path={`/example`} render={() => <Example value1={7} />} />}
           {logged && ['Admin', 'Developer'].includes(role) && <Route path={`/cms`} render={() => <Cms {...props} />} />}
           <Redirect to={'/home'} />

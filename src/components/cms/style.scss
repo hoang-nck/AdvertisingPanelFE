@@ -104,6 +104,33 @@
       }
     }
   }
+
+  .clsInfo {
+    position: relative;
+
+    textarea {
+      margin-top        : 5px;
+      background        : none;
+      width             : 100%;
+      border            : 1px solid #929dec;
+      border-radius     : 5px;
+      -webkit-transition: all 0.30s ease-in-out;
+      -moz-transition   : all 0.30s ease-in-out;
+      -ms-transition    : all 0.30s ease-in-out;
+      -o-transition     : all 0.30s ease-in-out;
+      outline           : none;
+
+      &:focus {
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+      }
+    }
+
+    .clsBtn.save {
+      position: fixed;
+      top     : 110px;
+      right   : 15px;
+    }
+  }
 }
 
 .clsModalAdv {

@@ -18,7 +18,7 @@ const Menu = connect(state => ({
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='mr-auto'>
           <NavLink className='nav-link' to='/' exact activeClassName='active'>Trang chủ</NavLink>
-          <NavLink className='nav-link' to='/workspace'>Giới thiệu</NavLink>
+          <NavLink className='nav-link' to='/introduction'>Giới thiệu</NavLink>
           <NavLink className='nav-link' to='/contact'>Liên hệ</NavLink>
           {logged && ['Developer'].includes(role) && <NavLink className='nav-link' to='/example'>Example</NavLink>}
           {logged && ['Admin', 'Developer'].includes(role) && <NavLink className='nav-link' to='/cms'>CMS</NavLink>}

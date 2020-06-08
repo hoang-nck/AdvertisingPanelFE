@@ -5,11 +5,14 @@ import * as advertisementCtr from '../../api/controller/advertisement'
 import * as fileCtr from '../../api/controller/file'
 import * as styleCtr from '../../api/controller/style'
 import * as newsCtr from '../../api/controller/news'
+import * as infoCtr from '../../api/controller/info'
 
 import Advertisement from './advertisement'
 import Image from './image'
 import AdvertisementStyle from './advertisementStyle'
 import News from './news'
+import Info from './info'
+
 import config from '../../utils/config'
 
 import './style.scss'
@@ -19,7 +22,8 @@ export default function Cms (props) {
     advertisements: [],
     styles: [],
     images: [],
-    newsList: []
+    newsList: [],
+    info: {}
   })
 
   useEffect(() => {
@@ -28,15 +32,17 @@ export default function Cms (props) {
         new Promise(async resolve => resolve(await styleCtr.get({sort: 'name'})())),
         new Promise(async resolve => resolve(await advertisementCtr.get({populate: 'style', sort: 'title'})())),
         new Promise(async resolve => resolve(await fileCtr.get({sort: 'name'})())),
-        new Promise(async resolve => resolve(await newsCtr.get({ sort: 'title' })()))
+        new Promise(async resolve => resolve(await newsCtr.get({ sort: 'title' })())),
+        new Promise(async resolve => resolve(await infoCtr.get()()))
       ])
       props.commonAc.addAlert({ type: config.alerts.success, title: 'Dữ liệu', body: 'Tải tất cả các dữ liệu thành công!' })
-      const [style, adv, file, news] = data
+      const [style, adv, file, news, info] = data
       setData({
         advertisements: adv.success ? adv.data : [],
         styles: style.success ? style.data : [],
         images: file.success ? file.data : [],
-        newsList: news.success ? news.data : []
+        newsList: news.success ? news.data : [],
+        info: info.success ? info.data[0] || {} : {}
       })
     })
     pro()
@@ -57,6 +63,9 @@ export default function Cms (props) {
         </Tab>
         <Tab eventKey='news' title='Tin tức'>
           <News {...props} newsList={data.newsList} />
+        </Tab>
+        <Tab eventKey='info' title='Thông tin chung'>
+          <Info {...props} info={data.info} />
         </Tab>
       </Tabs>
     </div>

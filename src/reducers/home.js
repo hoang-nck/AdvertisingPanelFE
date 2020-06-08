@@ -17,6 +17,11 @@ export default function home (state = initialState, action) {
         ...state,
         newsList: action.newsList
       }
+    case types.home.getInfo:
+      return {
+        ...state,
+        info: action.info
+      }
     default:
       return state
   }
