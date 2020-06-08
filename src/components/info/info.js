@@ -9,7 +9,7 @@ const resizeIframe = el => {
 }
 
 function Info (props) {
-  const { info, homeAc: { getInfo }, name, field } = props
+  const { info, homeAc: { getInfo }, title, field } = props
 
   useEffect(() => {
     _.isEmpty(getInfo) && _.isFunction(getInfo) && getInfo()
@@ -17,7 +17,7 @@ function Info (props) {
 
   return (
     <div className='clsInfo'>
-      <h1>{name}</h1>
+      <h1>{title}</h1>
       <div className='clsMain'>
         <iframe onLoad={el => resizeIframe(el)} width='100%' frameBorder='0' scrolling='no' srcdoc={info && info[field]} />
       </div>
