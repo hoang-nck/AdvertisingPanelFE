@@ -59,8 +59,18 @@ div.clsAlert {
 }
 
 .slick-dots {
-  position: unset;
-  bottom  : 0;
+  position     : unset;
+  bottom       : 0;
+  margin-bottom: 10px;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev {
+  left: 0;
+  z-index: 1 !important;
 }
 
 #root .clsMenu.navbar {

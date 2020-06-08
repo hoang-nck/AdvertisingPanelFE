@@ -24,14 +24,14 @@ const settings = {
   slidesToScroll: 1,
   autoplay: true,
   speed: 1000,
-  autoplaySpeed: 3000,
+  autoplaySpeed: 5000,
   cssEase: 'linear'
 }
 
 const styleSettings = {
   dots: true,
   infinite: false,
-  speed: 400,
+  speed: 1000,
   slidesToShow: 4,
   slidesToScroll: 4,
   initialSlide: 0,
