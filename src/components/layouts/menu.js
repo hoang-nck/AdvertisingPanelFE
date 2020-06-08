@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import Account from './account'
 
-export default connect(state => ({
+const Menu = connect(state => ({
   logged: state.auth.logged,
   user: state.auth.user
 }), null)(props => {
@@ -30,3 +30,5 @@ export default connect(state => ({
     </Navbar>
   )
 })
+
+export default Menu

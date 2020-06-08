@@ -48,6 +48,11 @@ export default function DetailAdvertisement (props) {
           </p>
           {advertisement.video && <iframe className='video' src={`https://www.youtube.com/embed/${advertisement.video}`} allowfullscreen='' />}
           {advertisement.description && <iframe onLoad={el => resizeIframe(el)} width='100%' frameborder='0' scrolling='no' srcdoc={advertisement.description} />}
+          <div className='clsHotline'>
+            <a className='clsFace' href='https://www.facebook.com/banghieuhopden79' target='_blank'>&nbsp;&nbsp;<i className='fab fa-facebook' />&nbsp;&nbsp;</a> <br />
+            <a className='clsZalo' href='https://zalo.me/0901345535' target='_blank'>Zalo</a> <br />
+            <a className='clsPhone' href='tel:0901345535'>0901 345 535 <i className='fa fa-phone' /></a>
+          </div>
         </div>
       </Modal.Body>
     </Modal>

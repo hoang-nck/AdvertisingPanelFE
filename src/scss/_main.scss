@@ -69,8 +69,8 @@ div.clsAlert {
 
 .clsHotline {
   position: fixed;
-  bottom  : 10px;
-  right   : 12px;
+  bottom  : 0;
+  right   : 5px;
 
   a {
     text-decoration: none;
@@ -101,13 +101,24 @@ div.clsAlert {
 }
 
 .scollToHead {
-  position: fixed;
-  bottom: 2px;
-  left: 16px;
+  position : fixed;
+  bottom   : -8px;
+  left     : 5px;
   font-size: 35px;
-  color: #066ef6;
+  color    : #066ef6;
 
   i {
     cursor: pointer;
   }
+}
+
+.clshr {
+  clear       : both;
+  border-color: #2476c0;
+  margin-top  : 30px;
+  box-shadow  : 0px 0px 10px 5px #f8f6f6;
+}
+
+.clsFooter {
+  margin-bottom: 15px;
 }

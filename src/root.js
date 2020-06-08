@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-// import Header from './components/layouts/header'
 import Menu from './components/layouts/menu'
 import Body from './components/layouts/body'
+import Footer from './components/layouts/footer'
 import Alerts from './components/common/alerts'
 import store from './store'
 
@@ -22,6 +22,7 @@ const Root = () => (
         <Menu />
         <Route component={Body} />
         <Alerts />
+        <Footer />
         <div className='clsHotline'>
           <a className='clsFace' href='https://www.facebook.com/banghieuhopden79' target='_blank'>&nbsp;&nbsp;<i className='fab fa-facebook' />&nbsp;&nbsp;</a> <br />
           <a className='clsZalo' href='https://zalo.me/0901345535' target='_blank'>Zalo</a> <br />
