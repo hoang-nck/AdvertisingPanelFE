@@ -69,7 +69,7 @@ div.clsAlert {
 }
 
 .slick-prev {
-  left: 0;
+  left   : 0;
   z-index: 1 !important;
 }
 
@@ -82,7 +82,7 @@ div.clsAlert {
   bottom  : 0;
   right   : 5px;
 
-  a {
+  >a {
     text-decoration: none;
     margin         : 3px;
     color          : white;
@@ -92,8 +92,8 @@ div.clsAlert {
     font-weight    : bolder;
   }
 
-  a.clsZalo,
-  a.clsFace {
+  >a.clsZalo,
+  >a.clsFace {
     background: -moz-radial-gradient(center, ellipse cover, rgba(30, 87, 153, 0) 0%, rgba(30, 87, 153, 0.8) 7%, rgba(30, 87, 153, 0.87) 20%, rgba(35, 110, 182, 1) 47%, rgba(41, 137, 216, 1) 78%, rgba(41, 137, 216, 1) 80%, rgba(41, 137, 216, 1) 81%, rgba(41, 137, 216, 0.8) 92%, rgba(41, 137, 216, 0) 100%);
     background: -webkit-radial-gradient(center, ellipse cover, rgba(30, 87, 153, 0) 0%, rgba(30, 87, 153, 0.8) 7%, rgba(30, 87, 153, 0.87) 20%, rgba(35, 110, 182, 1) 47%, rgba(41, 137, 216, 1) 78%, rgba(41, 137, 216, 1) 80%, rgba(41, 137, 216, 1) 81%, rgba(41, 137, 216, 0.8) 92%, rgba(41, 137, 216, 0) 100%);
     background: radial-gradient(ellipse at center, rgba(30, 87, 153, 0) 0%, rgba(30, 87, 153, 0.8) 7%, rgba(30, 87, 153, 0.87) 20%, rgba(35, 110, 182, 1) 47%, rgba(41, 137, 216, 1) 78%, rgba(41, 137, 216, 1) 80%, rgba(41, 137, 216, 1) 81%, rgba(41, 137, 216, 0.8) 92%, rgba(41, 137, 216, 0) 100%);
@@ -107,6 +107,199 @@ div.clsAlert {
     background: radial-gradient(ellipse at center, rgba(169, 228, 247, 1) 0%, rgba(30, 185, 233, 1) 90%, rgba(20, 182, 232, 0) 97%, rgba(15, 180, 231, 0) 100%);
     filter    : progid:DXImageTransform.Microsoft.gradient(startColorstr='#a9e4f7', endColorstr='#000fb4e7', GradientType=1);
 
+  }
+
+
+  .clsPhone {
+    .clsPhoneRing {
+      position                   : relative;
+      visibility                 : visible;
+      background-color           : transparent;
+      width                      : 116px;
+      height                     : 90px;
+      cursor                     : pointer;
+      -webkit-backface-visibility: hidden;
+      -webkit-transform          : translateZ(0);
+      transition                 : visibility .5s;
+      right                      : -37px;
+      bottom                     : 0;
+      display                    : block;
+
+      .clsPhoneRingCircle {
+        width                   : 85px;
+        height                  : 85px;
+        top                     : 10px;
+        left                    : 10px;
+        position                : absolute;
+        background-color        : transparent;
+        border-radius           : 100%;
+        border                  : 2px solid rgb(243, 8, 8);
+        -webkit-animation       : phonering-alo-circle-anim 1.2s infinite ease-in-out;
+        animation               : phonering-alo-circle-anim 1.2s infinite ease-in-out;
+        transition              : all .5s;
+        -webkit-transform-origin: 50% 50%;
+        -ms-transform-origin    : 50% 50%;
+        transform-origin        : 50% 50%;
+        opacity                 : .5;
+      }
+
+      .clsPhoneRingCircleFill {
+        width                   : 55px;
+        height                  : 55px;
+        top                     : 26px;
+        left                    : 26px;
+        position                : absolute;
+        border-radius           : 100%;
+        border                  : 2px solid transparent;
+        -webkit-animation       : phonering-alo-circle-fill-anim 2.3s infinite ease-in-out;
+        animation               : phonering-alo-circle-fill-anim 2.3s infinite ease-in-out;
+        transition              : all .5s;
+        -webkit-transform-origin: 50% 50%;
+        -ms-transform-origin    : 50% 50%;
+        transform-origin        : 50% 50%;
+      }
+
+      .clsPhoneRingImgCircle {
+        width                   : 33px;
+        height                  : 33px;
+        top                     : 37px;
+        left                    : 37px;
+        position                : absolute;
+        background-size         : 20px;
+        border-radius           : 100%;
+        border                  : 2px solid transparent;
+        -webkit-animation       : phonering-alo-circle-img-anim 1s infinite ease-in-out;
+        animation               : phonering-alo-circle-img-anim 1s infinite ease-in-out;
+        -webkit-transform-origin: 50% 50%;
+        -ms-transform-origin    : 50% 50%;
+        transform-origin        : 50% 50%;
+        display                 : -webkit-box;
+        display                 : -webkit-flex;
+        display                 : -ms-flexbox;
+        display                 : flex;
+        align-items             : center;
+        justify-content         : center;
+      }
+
+      .clsPhoneRingImgCircle .clsA {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .clsPhoneRingImgCircle .clsA img {
+        width : 20px;
+        height: 20px;
+      }
+    }
+
+    .hotlineBar {
+      border: 1px solid white;
+      background : #ddd url(/images/backgound.jpg) repeat top left;
+      position          : absolute;
+      border-radius     : 3px;
+      padding           : 0 50px 0 15px;
+      background-size   : 100%;
+      cursor            : pointer;
+      transition        : all .8s;
+      -webkit-transition: all .8s;
+      box-shadow        : 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.1);
+      border-radius     : 50px !important;
+      right             : 8px;
+      bottom            : 16px;
+
+      >a {
+        color          : #f50505;
+        text-decoration: none;
+        font-size      : 15px;
+        font-weight    : 700;
+        display        : block;
+        letter-spacing : 1px;
+        line-height    : 40px;
+        font-family    : Arial;
+      }
+      >a:active {
+        color: rgb(85, 67, 248);
+      }
+    }
+
+    .clsPhoneRingCircleFill, .clsPhoneRingImgCircle {
+      background: -moz-radial-gradient(center, ellipse cover, rgba(169, 228, 247, 1) 0%, rgba(30, 185, 233, 1) 90%, rgba(20, 182, 232, 0) 97%, rgba(15, 180, 231, 0) 100%);
+      background: -webkit-radial-gradient(center, ellipse cover, rgba(169, 228, 247, 1) 0%, rgba(30, 185, 233, 1) 90%, rgba(20, 182, 232, 0) 97%, rgba(15, 180, 231, 0) 100%);
+      background: radial-gradient(ellipse at center, rgba(169, 228, 247, 1) 0%, rgba(30, 185, 233, 1) 90%, rgba(20, 182, 232, 0) 97%, rgba(15, 180, 231, 0) 100%);
+      filter    : progid:DXImageTransform.Microsoft.gradient(startColorstr='#a9e4f7', endColorstr='#000fb4e7', GradientType=1);
+    }
+
+    @-webkit-keyframes phonering-alo-circle-anim {
+      0% {
+        -webkit-transform: rotate(0) scale(0.5) skew(1deg);
+        -webkit-opacity  : .1;
+      }
+
+      30% {
+        -webkit-transform: rotate(0) scale(0.7) skew(1deg);
+        -webkit-opacity  : .5;
+      }
+
+      100% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+        -webkit-opacity  : .1;
+      }
+    }
+
+    @-webkit-keyframes phonering-alo-circle-fill-anim {
+      0% {
+        -webkit-transform: rotate(0) scale(0.7) skew(1deg);
+        opacity          : .6;
+      }
+
+      50% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+        opacity          : .6;
+      }
+
+      100% {
+        -webkit-transform: rotate(0) scale(0.7) skew(1deg);
+        opacity          : .6;
+      }
+    }
+
+    @-webkit-keyframes phonering-alo-circle-img-anim {
+      0% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+      }
+
+      10% {
+        -webkit-transform: rotate(-25deg) scale(1) skew(1deg);
+      }
+
+      20% {
+        -webkit-transform: rotate(25deg) scale(1) skew(1deg);
+      }
+
+      30% {
+        -webkit-transform: rotate(-25deg) scale(1) skew(1deg);
+      }
+
+      40% {
+        -webkit-transform: rotate(25deg) scale(1) skew(1deg);
+      }
+
+      50% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hotlineBar {
+        display: none;
+      }
+    }
   }
 }
 

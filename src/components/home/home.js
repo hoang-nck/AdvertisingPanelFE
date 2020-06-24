@@ -167,7 +167,7 @@ function Home (props) {
             </div>
           </Col>
           <Col md={12} lg={3} className='clsNews' >
-            <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'news'})}>{getIconShowHide(!showHide.news)}Tin tức</div>
+            <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'news'})}>{getIconShowHide(!showHide.news)} Tin tức</div>
             <div className={`${!showHide.news ? '' : 'none'}`}>
               {newsList.map((news, idx) => {
                 return (

@@ -50,8 +50,21 @@ export default function DetailAdvertisement (props) {
           {advertisement.description && <iframe onLoad={el => resizeIframe(el)} width='100%' frameBorder='0' scrolling='no' srcdoc={advertisement.description} />}
           <div className='clsHotline'>
             <a className='clsFace' href='https://www.facebook.com/banghieuhopden79' target='_blank'>&nbsp;&nbsp;<i className='fab fa-facebook' />&nbsp;&nbsp;</a> <br />
-            <a className='clsZalo' href='https://zalo.me/0901345535' target='_blank'>Zalo</a> <br />
-            <a className='clsPhone' href='tel:0901345535'>0901 345 535 <i className='fa fa-phone' /></a>
+            <a className='clsZalo' href='https://zalo.me/0901345535' target='_blank'>Zalo</a> <br /><br />
+            <div class='clsPhone'>
+              <div class='hotlineBar'>
+                <a href='tel:0901345535'>
+                  <span class='textHotline'>0901.345.535</span>
+                </a>
+              </div>
+              <div class='clsPhoneRing'>
+                <div class='clsPhoneRingCircle' />
+                <div class='clsPhoneRingCircleFill' />
+                <div class='clsPhoneRingImgCircle'>
+                  <a href='tel:0901345535'><i className='fa fa-phone clrRed' /></a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Modal.Body>
