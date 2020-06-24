@@ -35,14 +35,12 @@ const styleSettings = {
   speed: 1000,
   slidesToShow: 4,
   slidesToScroll: 4,
-  initialSlide: 0,
   responsive: [
     {
       breakpoint: 4000,
       settings: {
         slidesToShow: 4,
-        slidesToScroll: 4,
-        dots: true
+        slidesToScroll: 4
       }
     },
     {
@@ -142,7 +140,6 @@ function Home (props) {
             {advertisements.sort().map((item, idx) => {
               return <div key={idx} className='clsSlideItem'>
                 <div>
-                  <canvas className='canvas' />
                   <Image src={getSrc(item)} onClick={() => onClick(`advertisements/${item.seo || item._id}`)} />
                   <strong className='title'>{item.title}</strong>
                 </div>
