@@ -129,8 +129,8 @@ function Home (props) {
       <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => onClick(`advertisements/${item.seo || item._id}`)} />
       <div id='idSearch' className='clsSearch'>
         <Row>
-          <Col sm={12} md={8} lg={9}><Image width='50' src='/images/advertising.png' /><span> Banghieuchunoi.com</span></Col>
-          <Col sm={12} md={4} lg={3} className='center'>
+          <Col xs={12} sm={8} md={8} lg={9}><Image width='50' src='/images/advertising.png' /><span> Banghieuchunoi.com</span></Col>
+          <Col xs={12} sm={4} md={4} lg={3} className='center'>
             <Select components={{ DropdownIndicator }} className='clsSelect floatR' value='' onChange={e => onClick(`advertisements/${e.item.seo || e.item._id}`)} placeholder='Tìm kiếm bảng hiệu' options={advertisements.map(item => ({ value: item._id, label: item.title, item }))} />
           </Col>
         </Row>
