@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Slider from 'react-slick'
 import { CardColumns, Card, Image, Row, Col, Media } from 'react-bootstrap'
 import { Route, Switch } from 'react-router-dom'
-import NumberFormat from 'react-number-format'
+import { Helmet } from 'react-helmet'
 
 import Cube from '../common/cube'
 import DetailAdvertisement from './detailAdvertisement'
@@ -108,19 +108,22 @@ function Home (props) {
   const allShowHide = !_.keys(showHide).find(key => !showHide[key])
   return (
     <div className='clsHome'>
-      <span className={`allShowHide ${allShowHide ? '' : 'clrBlack'}`} onClick={() => disPatch({type: 'allShowHide', allShowHide: !allShowHide, styles})}>{getIconShowHide(!allShowHide)}</span>
-      <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => onClick(`advertisements/${item._id}`)} />
+      <Helmet>
+        <title>Bang hieu chu noi</title>
+        <meta name='description' content='Trang chu bang hieu chu noi' />
+      </Helmet>
+      <span className={`allShowHide ${allShowHide ? '' : 'clrBlack'}`} onClick={() => disPatch({ type: 'allShowHide', allShowHide: !allShowHide, styles })}>{getIconShowHide(!allShowHide)}</span>
+      <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => onClick(`advertisements/${item.seo || item._id}`)} />
       <h1>Chào mừng bạn đến với Thiết kế bảng hiệu</h1>
       <div className='clsMain'>
         <div className='clsSlide'>
-          <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'slider'})}>{getIconShowHide(!showHide.slider)} Bảng hiệu chuộng nhất</div>
+          <div className='clsItemtitle' onClick={() => disPatch({ type: 'showHide', name: 'slider' })}>{getIconShowHide(!showHide.slider)} Bảng hiệu chuộng nhất</div>
           <Slider {...settings} className={`${!showHide.slider ? '' : 'none'}`}>
             {advertisements.sort().map((item, idx) => {
               return <div key={idx} className='clsSlideItem'>
                 <div>
-                  <Image src={getSrc(item)} onClick={() => onClick(`advertisements/${item._id}`)} />
+                  <Image src={getSrc(item)} onClick={() => onClick(`advertisements/${item.seo || item._id}`)} />
                   <strong className='title'>{item.title}</strong>
-                  <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='price'>{value} <span className='clrRed'>vnđ</span></span>} />
                 </div>
               </div>
             })}
@@ -131,14 +134,13 @@ function Home (props) {
             const { style, advertisements } = data
             return (
               <div className='clsSlide' key={idx}>
-                <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: style._id})}>{getIconShowHide(!showHide[style._id])} Loại {style.name}</div>
+                <div className='clsItemtitle' onClick={() => disPatch({ type: 'showHide', name: style._id })}>{getIconShowHide(!showHide[style._id])} Loại {style.name}</div>
                 <Slider {...styleSettings} className={`${!showHide[style._id] ? '' : 'none'}`}>
                   {advertisements.sort().map((item, idx) => {
                     return <div key={idx} className='clsSlideItem'>
                       <div>
-                        <Image src={getSrc(item)} onClick={() => onClick(`advertisements/${item._id}`)} />
+                        <Image src={getSrc(item)} onClick={() => onClick(`advertisements/${item.seo || item._id}`)} />
                         <strong className='title'>{item.title}</strong>
-                        <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='price'>{value} <span className='clrRed'>vnđ</span></span>} />
                       </div>
                     </div>
                   })}
@@ -150,15 +152,14 @@ function Home (props) {
         <Row>
           <Col md={12} lg={9} >
             <div className='clsCard'>
-              <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'current'})}>{getIconShowHide(!showHide.current)} Bảng hiệu gần đây</div>
+              <div className='clsItemtitle' onClick={() => disPatch({ type: 'showHide', name: 'current' })}>{getIconShowHide(!showHide.current)} Bảng hiệu gần đây</div>
               <CardColumns className={`${!showHide.current ? '' : 'none'}`}>
                 {advertisements.map((item, idx) => {
                   return (
                     <Card key={idx} >
-                      <Card.Img variant='top' src={getSrc(item)} onClick={() => onClick(`advertisements/${item._id}`)} />
+                      <Card.Img variant='top' src={getSrc(item)} onClick={() => onClick(`advertisements/${item.seo || item._id}`)} />
                       <Card.Body>
                         <Card.Title>{item.title}</Card.Title>
-                        <NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} />
                       </Card.Body>
                     </Card>
                   )
@@ -167,11 +168,11 @@ function Home (props) {
             </div>
           </Col>
           <Col md={12} lg={3} className='clsNews' >
-            <div className='clsItemtitle' onClick={() => disPatch({type: 'showHide', name: 'news'})}>{getIconShowHide(!showHide.news)} Tin tức</div>
+            <div className='clsItemtitle' onClick={() => disPatch({ type: 'showHide', name: 'news' })}>{getIconShowHide(!showHide.news)} Tin tức</div>
             <div className={`${!showHide.news ? '' : 'none'}`}>
               {newsList.map((news, idx) => {
                 return (
-                  <Media key={idx} onClick={() => onClick(`news/${news._id}`)}>
+                  <Media key={idx} onClick={() => onClick(`news/${news.seo || news._id}`)}>
                     <img
                       width={100}
                       className='mr-3'

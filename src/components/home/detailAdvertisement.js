@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, Modal } from 'react-bootstrap'
 import Slider from 'react-slick'
 import NumberFormat from 'react-number-format'
+import { Helmet } from 'react-helmet'
 import _ from 'lodash'
 
 import config from '../../utils/config'
@@ -22,7 +23,7 @@ export default function DetailAdvertisement (props) {
   const resizeIframe = el => {
     el.target.style.height = el.target.contentWindow.document.documentElement.scrollHeight + 'px'
   }
-  const advertisement = (advertisements || []).find(e => e._id === params._id)
+  const advertisement = (advertisements || []).find(e => (e.seo === params._id || e._id === params._id))
   if (_.isEmpty(advertisement)) return null
 
   return (
@@ -31,6 +32,10 @@ export default function DetailAdvertisement (props) {
         <Modal.Title className='w-100'>Chi tiết bảng hiệu</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <Helmet>
+          <title>Chi tiet bang hieu</title>
+          <meta name='description' content={advertisement.title} />
+        </Helmet>
         <div className='clsAdv'>
           <h4><strong className='clrBlue'>{advertisement.title}</strong></h4>
           <Slider {...settings}>
@@ -42,7 +47,7 @@ export default function DetailAdvertisement (props) {
             })}
           </Slider>
           <p>
-            <strong className='clrBlue'>Giá cả: </strong>
+            <strong className='clrBlue'>Giá tham khảo: </strong>
             <NumberFormat value={advertisement.price} displayType='text' thousandSeparator={' '} renderText={value => <span className='clsPrice'>{value} <span className='clrRed'>vnđ</span></span>} /><br />
             <strong className='clrBlue'>Thời gian hoàn thành:</strong> {advertisement.time}
           </p>

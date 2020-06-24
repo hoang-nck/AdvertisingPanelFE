@@ -57,19 +57,6 @@
           background-color: #101214d8;
           border-radius   : 5px;
         }
-
-        .price {
-          color           : white;
-          position        : absolute;
-          top             : 0;
-          left            : 0;
-          padding         : 5px;
-          background-color: #c0dcf55e;
-          margin          : 5px;
-          border          : 1px solid #4df5c2;
-          border-radius   : 5px;
-          box-shadow      : 0px 0px 10px 5px #f8f6f6;
-        }
       }
     }
 
@@ -91,20 +78,6 @@
 
           .card-title {
             margin-bottom: 0;
-          }
-
-          .clsPrice {
-            font-weight     : bold;
-            padding         : 5px;
-            background-color: black;
-            color           : white;
-            margin          : 5px;
-            position        : absolute;
-            right           : 0;
-            top             : -48px;
-            border          : 1px solid #4df5c2;
-            border-radius   : 5px;
-            box-shadow      : 0px 0px 10px 5px #f8f6f6;
           }
         }
       }

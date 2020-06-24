@@ -51,6 +51,7 @@ export default function Advertisement (props) {
           <tr>
             <th>#</th>
             <th><strong>Tiêu đề</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'title'}) }} icon={getIconSort(sort.title)} /></th>
+            <th><strong>SEO</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'seo'}) }} icon={getIconSort(sort.seo)} /></th>
             <th><strong>Loại</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'style'}) }} icon={getIconSort(sort.style)} /></th>
             <th><strong>Ưu tiên</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'sequence'}) }} icon={getIconSort(sort.sequence)} /></th>
             <th><strong>Giá</strong><Button className='clrBlue floatR' noLoading onClick={() => { disPatch({type: 'sort', field: 'price'}) }} icon={getIconSort(sort.price)} /></th>
@@ -65,6 +66,7 @@ export default function Advertisement (props) {
           <tr key={0}>
             <td>0</td>
             <td><Textbox type='text' name='title' value={advertisement.title} onChange={onChangeNew} title='' /></td>
+            <td><Textbox type='text' name='seo' value={advertisement.seo} onChange={onChangeNew} title='' /></td>
             <td><Select className='clsSelect' placeholder='Chọn loại bảng hiệu' value={getSelectValue(advertisement)} onChange={e => disPatch({type: 'onSelect', name: 'advertisement', e})} options={styles.map(item => ({ value: item._id, label: item.name }))} /></td>
             <td><Textbox type='number' name='sequence' value={advertisement.sequence} onChange={onChangeNew} title='' /></td>
             <td><Textbox type='number' name='price' value={advertisement.price} onChange={onChangeNew} title='' /></td>
@@ -86,6 +88,7 @@ export default function Advertisement (props) {
                 editIdx !== idx
                   ? <React.Fragment>
                     <td><div>{item.title}</div></td>
+                    <td><div>{item.seo}</div></td>
                     <td><div>{_.get(item, 'style.name', '')}</div></td>
                     <td><div>{item.sequence}</div></td>
                     <td><NumberFormat value={item.price} displayType='text' thousandSeparator={' '} renderText={value => <div className='clsPrice'>{value} <span className='clrRed'>vnđ</span></div>} /></td>
@@ -100,6 +103,7 @@ export default function Advertisement (props) {
                   </React.Fragment>
                   : <React.Fragment>
                     <td><Textbox type='text' name='title' value={item.title} onChange={onChangeEdit} title='' /></td>
+                    <td><Textbox type='text' name='seo' value={item.seo} onChange={onChangeEdit} title='' /></td>
                     <td><Select className='clsSelect' placeholder='Chọn loại bảng hiệu' value={getSelectValue(item)} onChange={e => disPatch({type: 'onSelect', name: 'advertisements', e})} options={styles.map(item => ({ value: item._id, label: item.name }))} /></td>
                     <td><Textbox type='number' name='sequence' value={item.sequence} onChange={onChangeEdit} title='' /></td>
                     <td><Textbox type='number' name='price' value={item.price} onChange={onChangeEdit} title='' /></td>
