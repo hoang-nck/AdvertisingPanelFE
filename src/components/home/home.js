@@ -5,6 +5,7 @@ import Slider from 'react-slick'
 import { CardColumns, Card, Image, Row, Col, Media } from 'react-bootstrap'
 import { Route, Switch } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import Select, { components } from 'react-select'
 
 import Cube from '../common/cube'
 import DetailAdvertisement from './detailAdvertisement'
@@ -84,6 +85,8 @@ const initialState = {
   allShowHide: true
 }
 
+const DropdownIndicator = props => <components.DropdownIndicator {...props}><i class='fas fa-search' /></components.DropdownIndicator>
+
 function Home (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)
   const { advertisements, newsList, homeAc: { getAdvertisements, getNewsList }, match, history } = props
@@ -92,6 +95,16 @@ function Home (props) {
   useEffect(() => {
     _.isEmpty(advertisements) && _.isFunction(getAdvertisements) && getAdvertisements({ populate: 'style', sort: 'title' })
     _.isEmpty(newsList) && _.isFunction(getNewsList) && getNewsList({ sort: 'title' })
+
+    const header = document.getElementById('idSearch')
+    const sticky = header.offsetTop
+    window.onscroll = () => {
+      if (window.pageYOffset > sticky) {
+        header.classList.add('sticky')
+      } else {
+        header.classList.remove('sticky')
+      }
+    }
   }, [])
   const onClick = path => history.push(`${match.path}/${path}`)
 
@@ -114,7 +127,14 @@ function Home (props) {
       </Helmet>
       <span className={`allShowHide ${allShowHide ? '' : 'clrBlack'}`} onClick={() => disPatch({ type: 'allShowHide', allShowHide: !allShowHide, styles })}>{getIconShowHide(!allShowHide)}</span>
       <Cube data={_.sortBy(advertisements, ['sequence']).slice(0, 6)} onClick={item => onClick(`advertisements/${item.seo || item._id}`)} />
-      <h1>Chào mừng bạn đến với Thiết kế bảng hiệu</h1>
+      <div id='idSearch' className='clsSearch'>
+        <Row>
+          <Col md={12} lg={9}><Image width='50' src='/images/advertising.png' /><span> Banghieuchunoi.com</span></Col>
+          <Col md={12} lg={3} className='center'>
+            <Select components={{ DropdownIndicator }} className='clsSelect floatR' value='' onChange={e => onClick(`advertisements/${e.item.seo || e.item._id}`)} placeholder='Tìm kiếm bảng hiệu' options={advertisements.map(item => ({ value: item._id, label: item.title, item }))} />
+          </Col>
+        </Row>
+      </div>
       <div className='clsMain'>
         <div className='clsSlide'>
           <div className='clsItemtitle' onClick={() => disPatch({ type: 'showHide', name: 'slider' })}>{getIconShowHide(!showHide.slider)} Bảng hiệu chuộng nhất</div>
@@ -122,6 +142,7 @@ function Home (props) {
             {advertisements.sort().map((item, idx) => {
               return <div key={idx} className='clsSlideItem'>
                 <div>
+                  <canvas className='canvas' />
                   <Image src={getSrc(item)} onClick={() => onClick(`advertisements/${item.seo || item._id}`)} />
                   <strong className='title'>{item.title}</strong>
                 </div>
