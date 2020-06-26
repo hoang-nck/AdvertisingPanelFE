@@ -154,7 +154,7 @@ function Home (props) {
             const { style, advertisements } = data
             return (
               <div className='clsSlide' key={idx}>
-                <div className='clsItemtitle' onClick={() => disPatch({ type: 'showHide', name: style._id })}>{getIconShowHide(!showHide[style._id])} Loại {style.name}</div>
+                <div className='clsItemtitle' onClick={() => disPatch({ type: 'showHide', name: style._id })}>{getIconShowHide(!showHide[style._id])} {style.name}</div>
                 <Slider {...styleSettings} className={`${!showHide[style._id] ? '' : 'none'}`}>
                   {advertisements.sort().map((item, idx) => {
                     return <div key={idx} className='clsSlideItem'>
