@@ -27,7 +27,7 @@ export default function DetailAdvertisement (props) {
   if (_.isEmpty(advertisement)) return null
 
   return (
-    <Modal show={!_.isEmpty(advertisement)} onHide={() => history.push('/home/advertisement')} size='lg' >
+    <Modal show={!_.isEmpty(advertisement)} onHide={() => history.push('/home/advertisement')} size='xl' >
       <Modal.Header closeButton >
         <Modal.Title className='w-100'>Chi tiết bảng hiệu</Modal.Title>
       </Modal.Header>

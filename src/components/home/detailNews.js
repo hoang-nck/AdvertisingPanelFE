@@ -10,7 +10,7 @@ export default function DetailNews (props) {
   if (_.isEmpty(news)) return null
 
   return (
-    <Modal show={!_.isEmpty(news)} onHide={() => history.push('/home/news')} size='lg' >
+    <Modal show={!_.isEmpty(news)} onHide={() => history.push('/home/news')} size='xl' >
       <Modal.Header closeButton >
         <Modal.Title className='w-100'>Chi tiết tin tức</Modal.Title>
       </Modal.Header>
