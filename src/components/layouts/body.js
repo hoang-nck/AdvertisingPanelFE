@@ -19,7 +19,7 @@ export default connect(state => ({
   const { logged, user: { role } } = props
   return (
     <div className='container'>
-      <main>
+      <main className='boxShadow'>
         <Switch>
           <Route path={'/home'} render={data => <Home {...props} {...data} />} />
           <Route path={`/contact`} render={() => <Info field='contact' title='Liên hệ' />} />
