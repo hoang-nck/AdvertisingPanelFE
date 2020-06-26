@@ -17,7 +17,7 @@ const Menu = connect(state => ({
   }, [])
 
   return (
-    <div className='clsMenu'>
+    <div className='clsMenu container-fluid'>
       <div className='gooey-menu'>
         <input type='checkbox' style={{ display: 'none' }} id='chc' />
         <label htmlFor='chc'>

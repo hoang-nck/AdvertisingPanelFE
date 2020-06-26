@@ -17,7 +17,7 @@ import './scss/app.scss'
 const Root = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <div className='container-fluid'>
+      <div>
         <Menu />
         <Route component={Body} />
         <Alerts />
