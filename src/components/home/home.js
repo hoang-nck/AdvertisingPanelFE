@@ -83,7 +83,7 @@ const initialState = {
   allShowHide: true
 }
 
-const DropdownIndicator = props => <components.DropdownIndicator {...props}><i class='fas fa-search' /></components.DropdownIndicator>
+const DropdownIndicator = props => <components.DropdownIndicator {...props}><i className='fas fa-search' /></components.DropdownIndicator>
 
 function Home (props) {
   const [state, disPatch] = common.useReducer(reducer, initialState, props)

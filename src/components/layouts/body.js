@@ -18,7 +18,7 @@ export default connect(state => ({
 }))(props => {
   const { logged, user: { role } } = props
   return (
-    <div>
+    <div className='container'>
       <main>
         <Switch>
           <Route path={'/home'} render={data => <Home {...props} {...data} />} />
